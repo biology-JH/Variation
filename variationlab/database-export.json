@@ -1,0 +1,52 @@
+{
+  "exportType": "Variation Lab Live database export",
+  "exportedAt": "2026-11-04T14:32:44.264Z",
+  "database": {
+    "dialect": "mysql",
+    "provider": "managed MySQL",
+    "connectionString": "REDACTED; provide DATABASE_URL in the new environment"
+  },
+  "collections": {
+    "users": {
+      "count": 0,
+      "rows": []
+    },
+    "class_submissions": {
+      "count": 0,
+      "rows": []
+    }
+  },
+  "schema": {
+    "sourceFile": "drizzle/schema.ts",
+    "source": "import { decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from \"drizzle-orm/mysql-core\";\n\n/**\n * Core user table backing auth flow.\n * Extend this file with additional tables as your product grows.\n */\nexport const users = mysqlTable(\"users\", {\n  id: int(\"id\").autoincrement().primaryKey(),\n  openId: varchar(\"openId\", { length: 64 }).notNull().unique(),\n  name: text(\"name\"),\n  email: varchar(\"email\", { length: 320 }),\n  loginMethod: varchar(\"loginMethod\", { length: 64 }),\n  role: mysqlEnum(\"role\", [\"user\", \"admin\"]).default(\"user\").notNull(),\n  createdAt: timestamp(\"createdAt\").defaultNow().notNull(),\n  updatedAt: timestamp(\"updatedAt\").defaultNow().onUpdateNow().notNull(),\n  lastSignedIn: timestamp(\"lastSignedIn\").defaultNow().notNull(),\n});\n\nexport type User = typeof users.$inferSelect;\nexport type InsertUser = typeof users.$inferInsert;\n\n/**\n * One row per anonymous student submission. No identity or free-form metadata is stored.\n * Leaf lengths are persisted as a JSON string so one student can submit multiple leaves\n * while the dashboard can still flatten them into continuous observations.\n */\nexport const classSubmissions = mysqlTable(\"class_submissions\", {\n  id: varchar(\"id\", { length: 36 }).primaryKey(),\n  bodyMass: decimal(\"bodyMass\", { precision: 7, scale: 2 }),\n  height: decimal(\"height\", { precision: 7, scale: 2 }),\n  handSpan: decimal(\"handSpan\", { precision: 6, scale: 2 }),\n  tongueRolling: mysqlEnum(\"tongueRolling\", [\"can\", \"cannot\"]),\n  eyeColour: mysqlEnum(\"eyeColour\", [\"brown\", \"blue\", \"green\", \"hazel\"]),\n  bloodGroup: mysqlEnum(\"bloodGroup\", [\"A\", \"B\", \"AB\", \"O\"]),\n  leafLengths: text(\"leafLengths\"),\n  seedMass: decimal(\"seedMass\", { precision: 8, scale: 4 }),\n  seedMasses: text(\"seedMasses\"),\n  submittedAt: timestamp(\"submittedAt\").defaultNow().notNull(),\n});\n\nexport type ClassSubmission = typeof classSubmissions.$inferSelect;\nexport type InsertClassSubmission = typeof classSubmissions.$inferInsert;\n"
+  },
+  "migrations": {
+    "0000_initial_users.sql": "CREATE TABLE IF NOT EXISTS `users` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`openId` varchar(64) NOT NULL,\n\t`name` text,\n\t`email` varchar(320),\n\t`loginMethod` varchar(64),\n\t`role` enum('user','admin') NOT NULL DEFAULT 'user',\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\t`lastSignedIn` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `users_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `users_openId_unique` UNIQUE(`openId`)\n);\n",
+    "0001_class_submissions.sql": "CREATE TABLE `class_submissions` (\n  `id` varchar(36) NOT NULL,\n  `bodyMass` decimal(7,2),\n  `height` decimal(7,2),\n  `handSpan` decimal(6,2),\n  `tongueRolling` enum('can','cannot'),\n  `eyeColour` enum('brown','blue','green','hazel'),\n  `bloodGroup` enum('A','B','AB','O'),\n  `leafLengths` text,\n  `seedMass` decimal(8,4),\n  `submittedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`)\n);\n",
+    "0002_seed_masses.sql": "ALTER TABLE `class_submissions` ADD COLUMN `seedMasses` text;\n"
+  },
+  "environmentVariables": {
+    "requiredForDatabase": [
+      "DATABASE_URL"
+    ],
+    "optionalForDatabaseAndRuntime": [
+      "NODE_ENV",
+      "PORT",
+      "TEACHER_KEY"
+    ],
+    "platformAuthenticationOrServicesIfUsed": [
+      "MANUS_API_KEY",
+      "MANUS_API_URL",
+      "MANUS_JWT_SECRET",
+      "MANUS_OAUTH_API_URL",
+      "MANUS_PROJECT_ID",
+      "OWNER_OPEN_ID"
+    ],
+    "note": "Names only. No secret values are included in this export."
+  },
+  "notes": [
+    "class_submissions is anonymous by design; no student identity fields are stored.",
+    "leafLengths and seedMasses are JSON-encoded text columns.",
+    "The current export is a raw database snapshot; restore migrations before inserting rows."
+  ]
+}
