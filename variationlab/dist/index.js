@@ -2,7 +2,7 @@
 import "dotenv/config";
 import express2 from "express";
 import { createServer } from "http";
-import { timingSafeEqual, randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 
 // shared/const.ts
@@ -893,48 +893,52 @@ var RANGES = {
   leafLength: { min: 0.5, max: 60, label: "0.5\u201360 cm" },
   seedMass: { min: 1e-3, max: 10, label: "0.001\u201310 g" }
 };
-var asFiniteNumber = (value) => {
+var optionalNumber = (value, range, label, field) => {
   if (value === void 0 || value === null || value === "") return void 0;
   const parsed = typeof value === "number" ? value : Number(value);
-  return Number.isFinite(parsed) ? parsed : void 0;
-};
-var rangeValue = (value, range, label, field) => {
-  const parsed = asFiniteNumber(value);
-  if (parsed === void 0) return void 0;
+  if (!Number.isFinite(parsed)) throw new Error(`${field} must be a valid number between ${label}.`);
   if (parsed < range.min || parsed > range.max) throw new Error(`${field} must be between ${label}.`);
   return Math.round(parsed * 1e4) / 1e4;
 };
+var hasSelectedValue = (value) => value !== void 0 && value !== null && value !== "";
 function cleanSubmission(input) {
+  if (input.consent !== true) {
+    throw new Error("Give consent to share this result anonymously before submitting.");
+  }
+  const acceptedFields = /* @__PURE__ */ new Set(["consent", "bodyMass", "height", "handSpan", "tongueRolling", "eyeColour", "bloodGroup", "leafLengths", "seedMass", "seedMasses"]);
+  if (Object.keys(input).some((field) => !acceptedFields.has(field))) {
+    throw new Error("Only anonymous investigation results are accepted; personal information is not accepted.");
+  }
   const clean = {};
-  clean.bodyMass = rangeValue(input.bodyMass, RANGES.bodyMass, RANGES.bodyMass.label, "Body mass");
-  clean.height = rangeValue(input.height, RANGES.height, RANGES.height.label, "Height");
-  clean.handSpan = rangeValue(input.handSpan, RANGES.handSpan, RANGES.handSpan.label, "Hand span");
-  clean.seedMass = rangeValue(input.seedMass, RANGES.seedMass, RANGES.seedMass.label, "Seed mass");
+  clean.bodyMass = optionalNumber(input.bodyMass, RANGES.bodyMass, RANGES.bodyMass.label, "Body mass");
+  clean.height = optionalNumber(input.height, RANGES.height, RANGES.height.label, "Height");
+  clean.handSpan = optionalNumber(input.handSpan, RANGES.handSpan, RANGES.handSpan.label, "Hand span");
+  clean.seedMass = optionalNumber(input.seedMass, RANGES.seedMass, RANGES.seedMass.label, "Seed mass");
   if (input.seedMasses !== void 0) {
     if (!Array.isArray(input.seedMasses) || input.seedMasses.length < 1 || input.seedMasses.length > 40) {
       throw new Error("Add between 1 and 40 seed masses, or leave Investigation 8 blank.");
     }
-    const masses = input.seedMasses.map((value) => rangeValue(value, RANGES.seedMass, RANGES.seedMass.label, "Seed mass"));
+    const masses = input.seedMasses.map((value) => optionalNumber(value, RANGES.seedMass, RANGES.seedMass.label, "Seed mass"));
     if (masses.some((value) => value === void 0)) throw new Error("Every seed mass must be a number.");
     clean.seedMasses = masses;
   }
-  if (input.tongueRolling !== void 0 && input.tongueRolling !== "can" && input.tongueRolling !== "cannot") {
+  if (hasSelectedValue(input.tongueRolling) && input.tongueRolling !== "can" && input.tongueRolling !== "cannot") {
     throw new Error("Tongue rolling must be Can or Cannot.");
   }
-  if (input.eyeColour !== void 0 && !["brown", "blue", "green", "hazel"].includes(String(input.eyeColour))) {
+  if (hasSelectedValue(input.eyeColour) && !["brown", "blue", "green", "hazel"].includes(String(input.eyeColour))) {
     throw new Error("Eye colour must be Brown, Blue, Green, or Hazel.");
   }
-  if (input.bloodGroup !== void 0 && !["A", "B", "AB", "O"].includes(String(input.bloodGroup))) {
+  if (hasSelectedValue(input.bloodGroup) && !["A", "B", "AB", "O"].includes(String(input.bloodGroup))) {
     throw new Error("Blood group must be A, B, AB, or O.");
   }
-  if (input.tongueRolling !== void 0) clean.tongueRolling = input.tongueRolling;
-  if (input.eyeColour !== void 0) clean.eyeColour = input.eyeColour;
-  if (input.bloodGroup !== void 0) clean.bloodGroup = input.bloodGroup;
+  if (hasSelectedValue(input.tongueRolling)) clean.tongueRolling = input.tongueRolling;
+  if (hasSelectedValue(input.eyeColour)) clean.eyeColour = input.eyeColour;
+  if (hasSelectedValue(input.bloodGroup)) clean.bloodGroup = input.bloodGroup;
   if (input.leafLengths !== void 0) {
     if (!Array.isArray(input.leafLengths) || input.leafLengths.length < 1 || input.leafLengths.length > 40) {
       throw new Error("Add between 1 and 40 leaf lengths, or leave Investigation 7 blank.");
     }
-    const leaves = input.leafLengths.map((value) => rangeValue(value, RANGES.leafLength, RANGES.leafLength.label, "Leaf length"));
+    const leaves = input.leafLengths.map((value) => optionalNumber(value, RANGES.leafLength, RANGES.leafLength.label, "Leaf length"));
     if (leaves.some((value) => value === void 0)) throw new Error("Every leaf length must be a number.");
     clean.leafLengths = leaves;
   }
@@ -947,15 +951,6 @@ function numeric(value) {
   if (value === null || value === void 0 || value === "") return void 0;
   const result = Number(value);
   return Number.isFinite(result) ? result : void 0;
-}
-function parseLeaves(value) {
-  if (!value) return [];
-  try {
-    const parsed = JSON.parse(value);
-    return Array.isArray(parsed) ? parsed.map(Number).filter(Number.isFinite) : [];
-  } catch {
-    return [];
-  }
 }
 function parseJsonNumbers(value) {
   if (!value) return [];
@@ -974,33 +969,42 @@ var quantile = (sorted, p) => {
   if (lower === upper) return sorted[lower];
   return sorted[lower] + (sorted[upper] - sorted[lower]) * (index - lower);
 };
-function makeHistogram(values, unit) {
+function makeHistogram(values, unit, minimumBinWidth) {
   const clean = values.filter(Number.isFinite).sort((a, b) => a - b);
   if (clean.length === 0) return { values: [], bins: [], min: null, max: null, unit };
   const min = clean[0];
   const max = clean[clean.length - 1];
-  if (min === max) return { values: clean, bins: [{ label: `${min} ${unit}`, start: min, end: max, frequency: clean.length }], min, max, unit };
+  const alignedMin = Math.floor(min / minimumBinWidth) * minimumBinWidth;
+  let alignedMax = Math.ceil(max / minimumBinWidth) * minimumBinWidth;
+  if (alignedMax <= alignedMin) alignedMax = alignedMin + minimumBinWidth;
   const q1 = quantile(clean, 0.25);
   const q3 = quantile(clean, 0.75);
   const fdWidth = 2 * (q3 - q1) / Math.cbrt(clean.length);
-  const sturges = Math.ceil(1 + Math.log2(clean.length));
-  const fdBins = fdWidth > 0 ? Math.ceil((max - min) / fdWidth) : sturges;
-  const binCount = Math.max(1, Math.min(12, fdBins || sturges));
-  const width = (max - min) / binCount;
-  const precision = width < 0.1 ? 2 : width < 1 ? 1 : 0;
+  const sturgesBins = Math.ceil(1 + Math.log2(clean.length));
+  const adaptiveWidth = Math.max(fdWidth || (alignedMax - alignedMin) / sturgesBins, minimumBinWidth);
+  const binCount = Math.max(1, Math.min(12, Math.floor((alignedMax - alignedMin) / adaptiveWidth)));
+  const width = (alignedMax - alignedMin) / binCount;
+  const precision = width < 0.1 ? 3 : width < 1 ? 1 : 0;
+  const format = (value) => Number(value.toFixed(precision)).toString();
   const bins = Array.from({ length: binCount }, (_, index) => {
-    const start = min + index * width;
-    const end = index === binCount - 1 ? max : min + (index + 1) * width;
-    return { start, end, label: `${start.toFixed(precision)}\u2013${end.toFixed(precision)}`, frequency: 0 };
+    const start = alignedMin + index * width;
+    const end = index === binCount - 1 ? alignedMax : alignedMin + (index + 1) * width;
+    return { start, end, label: `${format(start)}\u2013${format(end)}`, frequency: 0 };
   });
   for (const value of clean) {
-    const index = Math.min(binCount - 1, Math.floor((value - min) / width));
+    const index = Math.min(binCount - 1, Math.max(0, Math.floor((value - alignedMin) / width)));
     bins[index].frequency += 1;
   }
   return { values: clean, bins, min, max, unit };
 }
+function publicHistogram(histogram) {
+  return {
+    unit: histogram.unit,
+    bins: histogram.bins.map(({ label, frequency }) => ({ label, frequency }))
+  };
+}
 function buildSnapshot(rows) {
-  const leafValues = rows.flatMap((row) => parseLeaves(row.leafLengths));
+  const leafValues = rows.flatMap((row) => parseJsonNumbers(row.leafLengths));
   const tally = (field, categories) => categories.map((label) => ({
     label,
     frequency: rows.filter((row) => row[field] === label).length
@@ -1009,11 +1013,11 @@ function buildSnapshot(rows) {
     totalSampleSize: rows.length,
     updatedAt: (/* @__PURE__ */ new Date()).toISOString(),
     histograms: {
-      bodyMass: makeHistogram(rows.map((row) => numeric(row.bodyMass)).filter((v) => v !== void 0), "kg"),
-      height: makeHistogram(rows.map((row) => numeric(row.height)).filter((v) => v !== void 0), "cm"),
-      handSpan: makeHistogram(rows.map((row) => numeric(row.handSpan)).filter((v) => v !== void 0), "cm"),
-      leafLength: makeHistogram(leafValues, "cm"),
-      seedMass: makeHistogram(rows.flatMap((row) => [...parseJsonNumbers(row.seedMasses), ...numeric(row.seedMass) === void 0 ? [] : [numeric(row.seedMass)]]), "g")
+      bodyMass: publicHistogram(makeHistogram(rows.map((row) => numeric(row.bodyMass)).filter((v) => v !== void 0), "kg", 10)),
+      height: publicHistogram(makeHistogram(rows.map((row) => numeric(row.height)).filter((v) => v !== void 0), "cm", 10)),
+      handSpan: publicHistogram(makeHistogram(rows.map((row) => numeric(row.handSpan)).filter((v) => v !== void 0), "cm", 2)),
+      leafLength: publicHistogram(makeHistogram(leafValues, "cm", 5)),
+      seedMass: publicHistogram(makeHistogram(rows.flatMap((row) => [...parseJsonNumbers(row.seedMasses), ...numeric(row.seedMass) === void 0 ? [] : [numeric(row.seedMass)]]), "g", 0.5))
     },
     categories: {
       tongueRolling: tally("tongueRolling", ["can", "cannot"]),
@@ -1037,16 +1041,21 @@ function exportRows(rows) {
   }));
 }
 
-// server/_core/index.ts
-var streams = /* @__PURE__ */ new Set();
-var DEFAULT_TEACHER_KEY = "variationlab";
+// server/teacher-key.ts
+import { timingSafeEqual } from "node:crypto";
+var DEVELOPMENT_TEACHER_KEY = "variationlab";
 function teacherKeyIsValid(value) {
   const supplied = typeof value === "string" ? value : "";
-  const expected = process.env.TEACHER_KEY || DEFAULT_TEACHER_KEY;
+  const configured = process.env.TEACHER_KEY;
+  const expected = configured || (process.env.NODE_ENV === "development" ? DEVELOPMENT_TEACHER_KEY : "");
+  if (!expected) return false;
   const left = Buffer.from(supplied);
   const right = Buffer.from(expected);
   return left.length === right.length && timingSafeEqual(left, right);
 }
+
+// server/_core/index.ts
+var streams = /* @__PURE__ */ new Set();
 async function dashboardPayload() {
   const rows = await listClassSubmissions();
   return buildSnapshot(rows);

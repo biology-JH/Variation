@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { type Response } from "express";
 import { createServer } from "http";
-import { timingSafeEqual, randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { publicPlatformScript } from "./publicConfig";
@@ -10,17 +10,9 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { clearClassSubmissions, insertClassSubmission, listClassSubmissions } from "../db";
 import { buildSnapshot, cleanSubmission, exportRows } from "../variation";
+import { teacherKeyIsValid } from "../teacher-key";
 
 const streams = new Set<Response>();
-const DEFAULT_TEACHER_KEY = "variationlab";
-
-function teacherKeyIsValid(value: unknown) {
-  const supplied = typeof value === "string" ? value : "";
-  const expected = process.env.TEACHER_KEY || DEFAULT_TEACHER_KEY;
-  const left = Buffer.from(supplied);
-  const right = Buffer.from(expected);
-  return left.length === right.length && timingSafeEqual(left, right);
-}
 
 async function dashboardPayload() {
   const rows = await listClassSubmissions();

@@ -5,10 +5,7 @@ import { ArrowUpRight, Download, FlaskConical, Leaf, LockKeyhole, Plus, Radio, R
 import { Button } from "@/components/ui/button";
 
 type Histogram = {
-  values: number[];
-  bins: { label: string; start: number; end: number; frequency: number }[];
-  min: number | null;
-  max: number | null;
+  bins: { label: string; frequency: number }[];
   unit: string;
 };
 type Snapshot = {
@@ -22,11 +19,11 @@ const emptySnapshot: Snapshot = {
   totalSampleSize: 0,
   updatedAt: "",
   histograms: {
-    bodyMass: { values: [], bins: [], min: null, max: null, unit: "kg" },
-    height: { values: [], bins: [], min: null, max: null, unit: "cm" },
-    handSpan: { values: [], bins: [], min: null, max: null, unit: "cm" },
-    leafLength: { values: [], bins: [], min: null, max: null, unit: "cm" },
-    seedMass: { values: [], bins: [], min: null, max: null, unit: "g" },
+    bodyMass: { bins: [], unit: "kg" },
+    height: { bins: [], unit: "cm" },
+    handSpan: { bins: [], unit: "cm" },
+    leafLength: { bins: [], unit: "cm" },
+    seedMass: { bins: [], unit: "g" },
   },
   categories: {
     tongueRolling: [{ label: "can", frequency: 0 }, { label: "cannot", frequency: 0 }],
@@ -80,8 +77,8 @@ function HistogramChart({ histogram }: { histogram: Histogram }) {
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} margin={{ top: 10, right: 8, left: -22, bottom: 2 }} barCategoryGap={0} barGap={0}>
         <CartesianGrid vertical={false} stroke="#dfe4ef" strokeDasharray="2 4" />
-        <XAxis dataKey="label" tick={{ fill: "#63708a", fontSize: 10 }} axisLine={{ stroke: "#cbd3e2" }} tickLine={false} interval={data.length > 7 ? 1 : 0} />
-        <YAxis allowDecimals={false} tick={{ fill: "#63708a", fontSize: 10 }} axisLine={false} tickLine={false} width={34} />
+        <XAxis dataKey="label" tick={{ fill: "#63708a", fontSize: 18 }} axisLine={{ stroke: "#cbd3e2" }} tickLine={false} interval={data.length > 7 ? 1 : 0} />
+        <YAxis allowDecimals={false} tick={{ fill: "#63708a", fontSize: 18 }} axisLine={false} tickLine={false} width={44} />
         <Tooltip cursor={{ fill: "rgba(91,124,255,.08)" }} contentStyle={{ borderRadius: 10, border: "1px solid #dfe4ef", boxShadow: "0 10px 30px rgba(35,47,79,.12)" }} formatter={(value) => [`${value} observations`, "Frequency"]} />
         <Bar dataKey="frequency" fill="#5b7cff" radius={[3, 3, 0, 0]} animationDuration={500} />
       </BarChart>
@@ -94,8 +91,8 @@ function CategoryChart({ data, color }: { data: { label: string; frequency: numb
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data.map((item) => ({ ...item, label: categoryLabels[item.label] ?? item.label }))} margin={{ top: 10, right: 8, left: -22, bottom: 2 }} barCategoryGap="24%">
         <CartesianGrid vertical={false} stroke="#dfe4ef" strokeDasharray="2 4" />
-        <XAxis dataKey="label" tick={{ fill: "#63708a", fontSize: 10 }} axisLine={{ stroke: "#cbd3e2" }} tickLine={false} />
-        <YAxis allowDecimals={false} tick={{ fill: "#63708a", fontSize: 10 }} axisLine={false} tickLine={false} width={34} />
+        <XAxis dataKey="label" tick={{ fill: "#63708a", fontSize: 18 }} axisLine={{ stroke: "#cbd3e2" }} tickLine={false} />
+        <YAxis allowDecimals={false} tick={{ fill: "#63708a", fontSize: 18 }} axisLine={false} tickLine={false} width={44} />
         <Tooltip cursor={{ fill: "rgba(234,111,93,.08)" }} contentStyle={{ borderRadius: 10, border: "1px solid #dfe4ef", boxShadow: "0 10px 30px rgba(35,47,79,.12)" }} formatter={(value) => [`${value} observations`, "Frequency"]} />
         <Bar dataKey="frequency" fill={color} radius={[4, 4, 0, 0]} animationDuration={500} />
       </BarChart>
@@ -145,11 +142,12 @@ export default function Home() {
     setSubmitting(true);
     const payload = {
       ...form,
-      leafLengths: leafLengths.filter(Boolean).map(Number),
-      seedMasses: seedMasses.filter(Boolean).map(Number),
+      consent: consentGiven,
+      leafLengths: leafLengths.filter(Boolean),
+      seedMasses: seedMasses.filter(Boolean),
     };
-    if (!payload.leafLengths.length) delete (payload as { leafLengths?: number[] }).leafLengths;
-    if (!payload.seedMasses.length) delete (payload as { seedMasses?: number[] }).seedMasses;
+    if (!payload.leafLengths.length) delete (payload as { leafLengths?: string[] }).leafLengths;
+    if (!payload.seedMasses.length) delete (payload as { seedMasses?: string[] }).seedMasses;
     try {
       const response = await fetch("/api/class-data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const result = await response.json();
@@ -201,8 +199,16 @@ export default function Home() {
             <Field label="Body mass" unit="kg" hint="20–300 kg" value={form.bodyMass} onChange={(v) => update("bodyMass", v)} min="20" max="300" />
             <Field label="Height" unit="cm" hint="80–230 cm" value={form.height} onChange={(v) => update("height", v)} min="80" max="230" />
             <Field label="Hand span" unit="cm" hint="5–35 cm" value={form.handSpan} onChange={(v) => update("handSpan", v)} min="5" max="35" />
-            <div className="leaf-input"><div className="leaf-head"><span>Leaf lengths <em>cm</em></span><button type="button" onClick={() => setLeafLengths((rows) => [...rows, ""])}><Plus size={14} /> add row</button></div>{leafLengths.map((value, index) => <div className="leaf-row" key={index}><span>{String(index + 1).padStart(2, "0")}</span><input type="number" min="0.5" max="60" step="0.1" value={value} onChange={(event) => setLeafLengths((rows) => rows.map((row, rowIndex) => rowIndex === index ? event.target.value : row))} placeholder="leaf length" />{leafLengths.length > 1 && <button type="button" aria-label="Remove leaf row" onClick={() => setLeafLengths((rows) => rows.filter((_, rowIndex) => rowIndex !== index))}><X size={14} /></button>}</div>)}</div>
-            <div className="leaf-input seed-mass-input"><div className="leaf-head"><span>Seed mass <em>g</em></span><button type="button" onClick={() => setSeedMasses((rows) => [...rows, ""])}><Plus size={14} /> add row</button></div>{seedMasses.map((value, index) => <div className="leaf-row" key={index}><span>{String(index + 1).padStart(2, "0")}</span><input type="number" min="0.001" max="10" step="0.001" value={value} onChange={(event) => setSeedMasses((rows) => rows.map((row, rowIndex) => rowIndex === index ? event.target.value : row))} placeholder="seed mass" />{seedMasses.length > 1 && <button type="button" aria-label="Remove seed mass row" onClick={() => setSeedMasses((rows) => rows.filter((_, rowIndex) => rowIndex !== index))}><X size={14} /></button>}</div>)}<small>0.001–10 g per row</small></div>
+            <div className="leaf-input">
+              <div className="leaf-head"><span>Leaf lengths <em>cm</em></span><button type="button" aria-label="Add leaf length row, maximum 40" disabled={leafLengths.length >= 40} onClick={() => setLeafLengths((rows) => rows.length < 40 ? [...rows, ""] : rows)}><Plus size={14} /> add row</button></div>
+              {leafLengths.map((value, index) => <div className="leaf-row" key={index}><span>{String(index + 1).padStart(2, "0")}</span><input type="number" min="0.5" max="60" step="0.1" value={value} onChange={(event) => setLeafLengths((rows) => rows.map((row, rowIndex) => rowIndex === index ? event.target.value : row))} placeholder="leaf length" />{leafLengths.length > 1 && <button type="button" aria-label="Remove leaf row" onClick={() => setLeafLengths((rows) => rows.filter((_, rowIndex) => rowIndex !== index))}><X size={14} /></button>}</div>)}
+              <small>0.5–60 cm per row · up to 40 rows</small>
+            </div>
+            <div className="leaf-input seed-mass-input">
+              <div className="leaf-head"><span>Seed mass <em>g</em></span><button type="button" aria-label="Add seed mass row, maximum 40" disabled={seedMasses.length >= 40} onClick={() => setSeedMasses((rows) => rows.length < 40 ? [...rows, ""] : rows)}><Plus size={14} /> add row</button></div>
+              {seedMasses.map((value, index) => <div className="leaf-row" key={index}><span>{String(index + 1).padStart(2, "0")}</span><input type="number" min="0.001" max="10" step="0.001" value={value} onChange={(event) => setSeedMasses((rows) => rows.map((row, rowIndex) => rowIndex === index ? event.target.value : row))} placeholder="seed mass" />{seedMasses.length > 1 && <button type="button" aria-label="Remove seed mass row" onClick={() => setSeedMasses((rows) => rows.filter((_, rowIndex) => rowIndex !== index))}><X size={14} /></button>}</div>)}
+              <small>0.001–10 g per row · up to 40 rows</small>
+            </div>
           </div>
           <div className="form-section categorical-section"><div className="form-section-heading"><span className="section-kicker coral-kicker">Categories</span><span className="muted-label">Choose one if you wish</span></div>
             <ChoiceGroup label="Tongue rolling" options={[{ value: "can", label: "Can" }, { value: "cannot", label: "Cannot" }]} value={form.tongueRolling} onChange={(v) => update("tongueRolling", v)} note="Opt in only — skip if you prefer." />
@@ -217,11 +223,11 @@ export default function Home() {
         </form>
         <div className="privacy-note"><ShieldCheck size={16} /><p><strong>Anonymous by design.</strong><br />The class sees grouped totals, never individual records.</p></div>
         <button className="teacher-trigger" type="button" onClick={() => setTeacherOpen((open) => !open)}><LockKeyhole size={14} /> Teacher controls</button>
-        {teacherOpen && <div className="teacher-panel"><div className="teacher-panel-head"><span><LockKeyhole size={14} /> Teacher utility</span><button type="button" onClick={() => setTeacherOpen(false)}><X size={14} /></button></div><p>Enter the server teacher key to export raw rows or prepare a new class.</p><input type="password" value={teacherKey} onChange={(event) => setTeacherKey(event.target.value)} placeholder="Teacher key" /><div className="teacher-actions"><Button type="button" variant="outline" onClick={() => void exportCsv()}><Download size={14} /> Export CSV</Button><Button type="button" variant="outline" className="danger-button" onClick={() => void clearDatabase()}><Trash2 size={14} /> Clear database</Button></div><small>First-run default: variationlab. Set <code>TEACHER_KEY</code> to replace it.</small></div>}
+        {teacherOpen && <div className="teacher-panel"><div className="teacher-panel-head"><span><LockKeyhole size={14} /> Teacher utility</span><button type="button" onClick={() => setTeacherOpen(false)}><X size={14} /></button></div><p>Use the private teacher key to export raw rows or prepare a new class.</p><input type="password" value={teacherKey} onChange={(event) => setTeacherKey(event.target.value)} placeholder="Teacher key" /><div className="teacher-actions"><Button type="button" variant="outline" onClick={() => void exportCsv()}><Download size={14} /> Export CSV</Button><Button type="button" variant="outline" className="danger-button" onClick={() => void clearDatabase()}><Trash2 size={14} /> Clear database</Button></div><small>{import.meta.env.DEV ? <>Development fallback: <code>variationlab</code>. Set a private <code>TEACHER_KEY</code> before deployment.</> : <>Use the private <code>TEACHER_KEY</code> configured for this deployment.</>}</small></div>}
       </aside>
 
       <section className="dashboard-stage">
-        <header className="stage-header"><img className="pdf-header-image" src="/assets/pdf/header-collage.png" alt="Collage of people, measurements, leaves, seeds, and eyes from the lesson PDF" /><div className="pdf-title-overlay"><span>Biology / 18.1</span><h2>Continuous <i>and</i><br />Discontinuous <em>Variation</em></h2></div><div className="header-live-status"><span className={`live-dot ${live ? "is-live" : ""}`} />{live ? "Live class signal" : "Connecting to class signal"}</div></header>
+        <header className="stage-header"><img className="pdf-header-image" src="/assets/pdf/header-edge-to-edge.png" alt="Two supplied lesson-PDF images composed edge-to-edge: a collage of variation investigations and a class field observation" /><div className="pdf-title-overlay"><span>Biology / 18.1</span><h2>Continuous <i>and</i><br />Discontinuous <em>Variation</em></h2></div><div className="header-live-status"><span className={`live-dot ${live ? "is-live" : ""}`} />{live ? "Live class signal" : "Connecting to class signal"}</div></header>
 
         <div className="dashboard-content">
           <div className="dashboard-toolbar"><div><span className="section-kicker">02 / Class display</span><h2>Shared evidence board</h2></div><div className="sample-counter"><span className="counter-label"><Radio size={14} /> total sample size</span><strong>N = {snapshot.totalSampleSize}</strong><span className="counter-caption">anonymous submissions</span></div></div>
@@ -229,14 +235,14 @@ export default function Home() {
 
           <div className="chart-section-heading"><span className="section-kicker">Investigations 1–8</span><span>Intervals and tallies update as the class grows</span></div>
           <div className="chart-grid chronological-grid">
-            <ChartFrame number="01" title="Body mass" tag="HISTOGRAM / kg" image="/assets/pdf/investigations/investigation-6.png" emptyLabel={snapshot.histograms.bodyMass.values.length ? `${snapshot.histograms.bodyMass.values.length} measured values · bars touch` : "Enter body mass to start the interval"}><HistogramChart histogram={snapshot.histograms.bodyMass} /></ChartFrame>
-            <ChartFrame number="02" title="Height" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-1.png" emptyLabel={snapshot.histograms.height.values.length ? `${snapshot.histograms.height.values.length} measured values · bars touch` : "Enter height to start the interval"}><HistogramChart histogram={snapshot.histograms.height} /></ChartFrame>
-            <ChartFrame number="03" title="Hand span" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-4.png" emptyLabel={snapshot.histograms.handSpan.values.length ? `${snapshot.histograms.handSpan.values.length} measured values · bars touch` : "Enter hand span to start the interval"}><HistogramChart histogram={snapshot.histograms.handSpan} /></ChartFrame>
+            <ChartFrame number="01" title="Body mass" tag="HISTOGRAM / kg" image="/assets/pdf/investigations/investigation-6.png" emptyLabel={snapshot.histograms.bodyMass.bins.length ? "Grouped intervals · bars touch" : "Enter body mass to start the interval"}><HistogramChart histogram={snapshot.histograms.bodyMass} /></ChartFrame>
+            <ChartFrame number="02" title="Height" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-1.png" emptyLabel={snapshot.histograms.height.bins.length ? "Grouped intervals · bars touch" : "Enter height to start the interval"}><HistogramChart histogram={snapshot.histograms.height} /></ChartFrame>
+            <ChartFrame number="03" title="Hand span" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-4.png" emptyLabel={snapshot.histograms.handSpan.bins.length ? "Grouped intervals · bars touch" : "Enter hand span to start the interval"}><HistogramChart histogram={snapshot.histograms.handSpan} /></ChartFrame>
             <ChartFrame number="04" title="Tongue rolling" tag="BAR CHART / tally" image="/assets/pdf/investigations/investigation-5.png" emptyLabel="Separated bars keep categories distinct"><CategoryChart data={snapshot.categories.tongueRolling} color="#ea6f5d" /></ChartFrame>
             <ChartFrame number="05" title="Eye colour" tag="BAR CHART / tally" image="/assets/pdf/investigations/investigation-9.png" emptyLabel="Separated bars keep categories distinct"><CategoryChart data={snapshot.categories.eyeColour} color="#eaa35d" /></ChartFrame>
             <ChartFrame number="06" title="Blood group" tag="BAR CHART / simulated" image="/assets/pdf/investigations/investigation-2.png" emptyLabel="Simulated data only · separated bars"><CategoryChart data={snapshot.categories.bloodGroup} color="#b276d7" /></ChartFrame>
-            <ChartFrame number="07" title="Leaf length" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-7.png" emptyLabel={snapshot.histograms.leafLength.values.length ? `${snapshot.histograms.leafLength.values.length} leaves · bars touch` : "Add leaf rows to start the interval"}><HistogramChart histogram={snapshot.histograms.leafLength} /></ChartFrame>
-            <ChartFrame number="08" title="Seed mass" tag="HISTOGRAM / g" image="/assets/pdf/investigations/investigation-8.png" emptyLabel={snapshot.histograms.seedMass.values.length ? `${snapshot.histograms.seedMass.values.length} measured values · bars touch` : "Enter seed mass to start the interval"}><HistogramChart histogram={snapshot.histograms.seedMass} /></ChartFrame>
+            <ChartFrame number="07" title="Leaf length" tag="HISTOGRAM / cm" image="/assets/pdf/investigations/investigation-7.png" emptyLabel={snapshot.histograms.leafLength.bins.length ? "Grouped intervals · bars touch" : "Add leaf rows to start the interval"}><HistogramChart histogram={snapshot.histograms.leafLength} /></ChartFrame>
+            <ChartFrame number="08" title="Seed mass" tag="HISTOGRAM / g" image="/assets/pdf/investigations/investigation-8.png" emptyLabel={snapshot.histograms.seedMass.bins.length ? "Grouped intervals · bars touch" : "Enter seed mass to start the interval"}><HistogramChart histogram={snapshot.histograms.seedMass} /></ChartFrame>
           </div>
           <footer className="stage-footer"><div><Leaf size={15} /> Investigation 7 accepts multiple leaves per submission.</div><div>Consent first · body mass stays private · blood group is simulated.</div><div className="footer-mark">VL / 18.1</div></footer>
         </div>
