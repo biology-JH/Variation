@@ -25,7 +25,7 @@
 
 ## Supplied artwork, design, and accessibility
 
-- [x] Use only the supplied PDF-derived artwork: the two cover pictures form a gapless edge-to-edge header, worksheet Name/Date lines are removed, and each investigation chart uses its matching original picture from the supplied PDF. Show every complete picture without cutting or cropping it, preserve the source aspect ratio, and keep the existing image-panel dimensions unchanged at 150px desktop, 190px tablet, and 210px mobile. Do not embed the full PDF as a lesson gallery; keep the left entry panel text-only.
+- [x] Use only the supplied PDF-derived artwork: the two cover pictures form a gapless edge-to-edge header, worksheet Name/Date lines are removed, and each investigation chart uses its matching original picture from the supplied PDF. Show each picture at the same printed physical size as in the PDF—approximately 316 CSS px wide at 96 CSS px/in, with the natural aspect-derived height—without scaling it into a smaller or larger fixed-size box and without cutting or cropping it. Do not embed the full PDF as a lesson gallery; keep the left entry panel text-only.
 - [x] Preserve the approved midnight-observatory × field-notebook visual direction: deep navy display stage, warm paper panels, cobalt continuous-measurement cues, coral category cues, mint live beacon, measurement rules/interval ticks, DM Sans for controls/data, Space Grotesk for display headings, and restrained motion.
 - [x] Essential classroom labels, inputs, actions, consent text, and chart titles use large-print typography at approximately 26px or larger at desktop and mobile widths.
 
