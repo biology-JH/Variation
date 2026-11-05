@@ -14,6 +14,7 @@
 - [x] The dashboard shows total sample size N as the number of submission rows and refreshes from the shared data without a forced page reload.
 - [x] Server-Sent Events are served at `/api/class-data/stream`; the client has a five-second polling fallback when the live stream is unavailable.
 - [x] Dashboard cards are strictly ordered Investigations 1–8. Investigations 1, 2, 3, 7, and 8 show touching-bar histograms with automatically adapting intervals; Investigations 4, 5, and 6 show separated categorical bars and tallies.
+- [x] Change only the right-hand investigation board: preserve the existing left entry rail, cover/header, form, and all other layout. Show two wider cards per row in pairs 1/2, 3/4, 5/6, and 7/8 whenever that panel can fit them; switch only that board to one column when it is too narrow. Keep every investigation picture at its existing 316px width and natural height; do not resize, overlap, or crop pictures. Chart titles, tags, plots, and footnotes must fit or wrap without overlapping text or overflowing the board. Remove investigation-card drop shadows and hover lift.
 - [x] The public GET snapshot and SSE payload contain only grouped histogram intervals/frequencies and category tallies—not raw observations, per-row arrays, submission IDs, or exact minimum/maximum values. Student-facing grouping labels remain neutral and totals protect privacy; full rows are available only through teacher-key-protected CSV export.
 
 ## Teacher utilities and production safety

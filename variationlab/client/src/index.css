@@ -215,9 +215,19 @@ body { font-size: 26px; }
 @media (max-width: 560px) { .stage-header { min-height: 340px; }.pdf-header-image { height: 340px; }.pdf-title-overlay > span { font-size: 13px; }.pdf-title-overlay h2 { font-size: 43px; } }
 
 /* Chronological Investigation 1–8 display. */
-.chronological-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.chronological-grid .chart-card { grid-column: span 2; }
-.chronological-grid .chart-card:nth-child(7), .chronological-grid .chart-card:nth-child(8) { grid-column: span 3; }
+.chronological-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.chronological-grid .chart-card { grid-column: auto; }
+.dashboard-content { container-type: inline-size; }
+.chart-card { box-shadow: none; transition: none; }
+.chart-card:hover { transform: none; box-shadow: none; }
+.chart-card-top { gap: 8px; flex-wrap: wrap; }
+.evidence-tag { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: right; }
+.chart-title-row { gap: 12px; min-width: 0; flex-wrap: wrap; }
+.chart-title-row h3 { min-width: 0; flex: 1 1 auto; overflow-wrap: anywhere; }
+.chart-title-row svg { flex: 0 0 auto; }
+.chart-wrap { min-width: 0; width: 100%; }
+.chart-footnote { min-width: 0; flex-wrap: wrap; }
 .pdf-header-image { object-position: center; }
 @media (max-width: 1120px) { .chronological-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.chronological-grid .chart-card, .chronological-grid .chart-card:nth-child(7), .chronological-grid .chart-card:nth-child(8) { grid-column: span 1; } }
 @media (max-width: 560px) { .chronological-grid { grid-template-columns: 1fr; } }
+@container (max-width: 708px) { .chronological-grid { grid-template-columns: 1fr; }.chronological-grid .chart-card { grid-column: auto; } }
