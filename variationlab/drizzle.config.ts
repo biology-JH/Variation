@@ -1,15 +1,19 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { defineConfig } from "drizzle-kit";
+import { getDrizzlePostgresCredentials, getPostgresConnectionString } from "./server/db-config";
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = getPostgresConnectionString();
 if (!connectionString) {
-  throw new Error("DATABASE_URL is required to run drizzle commands");
+  throw new Error("POSTGRES_DATABASE_URL or a PostgreSQL DATABASE_URL is required to run Drizzle commands.");
 }
+
+const caCertificate = readFileSync(resolve(process.cwd(), "certs/aiven-ca.pem"), "utf8");
+const dbCredentials = getDrizzlePostgresCredentials(connectionString, caCertificate);
 
 export default defineConfig({
   schema: "./drizzle/schema.ts",
-  out: "./drizzle",
-  dialect: "mysql",
-  dbCredentials: {
-    url: connectionString,
-  },
+  out: "./drizzle/postgres",
+  dialect: "postgresql",
+  dbCredentials,
 });

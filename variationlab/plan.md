@@ -8,7 +8,7 @@ The server validates field bounds and categories, rejects malformed nonblank num
 
 Teacher-only operations are progressively disclosed and protected by `TEACHER_KEY`. The documented `variationlab` classroom key is a development-only fallback; production fails closed when `TEACHER_KEY` is absent. CSV export and destructive clear remain separate operations, and the client confirms before a clear request.
 
-The supplied database export has zero user records and zero class submissions. Restore the checked-in MySQL schema/migrations only; do not import placeholder records or run a destructive reset.
+The supplied database export has zero user records and zero class submissions. The user selected Aiven service `pg-12682151`; a read-only TLS-verified connection confirmed PostgreSQL major version 18 and an initially empty public schema. The connection URI is stored as the protected Manus `POSTGRES_DATABASE_URL`. Use the supplied public Aiven project CA certificate with `rejectUnauthorized: true`; do not disable certificate or hostname verification. Keep PostgreSQL migrations separate from the archived MySQL migration history. Do not copy data from the existing MySQL service or run PostgreSQL DDL against it. The already-enabled Manus managed MySQL capability remains unchanged and is not used by the converted app.
 
 ## Project structure
 
@@ -17,8 +17,11 @@ The supplied database export has zero user records and zero class submissions. R
 - `client/public/assets/pdf/` — supplied PDF-derived collage and matching investigation pictures extracted from the PDF; the header uses the supplied cover panels edge-to-edge, and investigation pictures retain their aspect ratios without cropping inside the existing fixed-size panels.
 - `server/_core/index.ts` — Express endpoints for anonymous submission, aggregate-only snapshot/SSE, health, protected CSV export, and protected clear.
 - `server/variation.ts` — input validation, aggregate histogram binning, category tallies, and response shaping; raw submission rows remain separate from public summaries.
-- `server/db.ts` — database access, submission persistence, and dashboard queries.
-- `drizzle/schema.ts` and `drizzle/` — MySQL schema and checked-in additive migrations.
+- `server/db.ts` — CA-verified PostgreSQL connection pool, submission persistence, and dashboard queries; reject non-PostgreSQL DSNs rather than accidentally connecting the converted schema to Manus-managed MySQL.
+- `drizzle/schema.ts` and `drizzle/postgres/` — PostgreSQL schema and checked-in additive migrations. `drizzle/legacy-mysql/` retains the original migration chain for reference; it is not active.
+- `certs/aiven-ca.pem` — public Aiven project CA trust anchor used by Node's PostgreSQL driver with certificate verification enabled; refresh from Aiven when its CA rotates.
+- `scripts/migrate-db.ts` — finite PostgreSQL migration command using the same explicit CA trust and strict TLS verification as the runtime.
+- `DATABASE.md` — PostgreSQL connection, TLS, migration, and MySQL-history safety notes.
 - `manus-routes.json` — page-route declaration for the dashboard.
 - `app.config.ts` — project logo metadata.
 

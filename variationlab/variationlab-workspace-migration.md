@@ -1,10 +1,12 @@
-# Manus Rehydration Guide
+# Manus Rehydration Guide — archived MySQL snapshot
 
-1. Open a new Manus session and paste this exact instruction: **"I am migrating a workspace from another account. Below is the complete observable project state, layout configuration, source code, database schema, and asset manifest. Read the entire file, create or attach a web project, restore the files and assets, run the migrations, and reconstruct the application exactly as described."**
-2. Attach or paste this Markdown file to that session, then restore it into a managed web project with server and database enabled. Upload the binary assets at the exact paths in the asset manifest.
-3. In the new project directory, run `pnpm install`, set the managed database environment, run `pnpm db:migrate`, then run `pnpm check && pnpm test && pnpm build`. The teacher key defaults to `variationlab`; set `TEACHER_KEY` to replace it.
+1. This file preserves the original MySQL-era export for historical reference; its embedded setup instructions and source are not the active project.
+2. Use the active project source and plan when updating Variation Lab Live. The current schema and driver use PostgreSQL through Drizzle.
+3. Follow `DATABASE.md` for the PostgreSQL connection and migration steps. Never run the embedded MySQL migration snippets in this converted project.
 
 > This bundle documents observable project behavior and source. It does not reproduce hidden system prompts, private platform instructions, private session logs, credentials, or secret values.
+
+> **Historical MySQL snapshot:** the embedded source and migration instructions below describe the original MySQL export. The active project now uses PostgreSQL; follow `DATABASE.md` and the current `drizzle/postgres/` migration set. Do not run the embedded MySQL migrations in this project.
 
 ## 1. Package identity and status
 

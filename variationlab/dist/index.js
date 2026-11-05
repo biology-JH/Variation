@@ -1,3 +1,9 @@
+var __defProp = Object.defineProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
 // server/_core/index.ts
 import "dotenv/config";
 import express2 from "express";
@@ -31,35 +37,93 @@ var decodeOAuthState = (state) => {
 import { parse as parseCookieHeader2 } from "cookie";
 
 // server/db.ts
-import { eq, desc } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { desc, eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 
 // drizzle/schema.ts
-import { decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
-var users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
+var schema_exports = {};
+__export(schema_exports, {
+  bloodGroupChoice: () => bloodGroupChoice,
+  classSubmissions: () => classSubmissions,
+  eyeColourChoice: () => eyeColourChoice,
+  tongueRollingChoice: () => tongueRollingChoice,
+  userRole: () => userRole,
+  users: () => users
+});
+import { numeric, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+var userRole = pgEnum("user_role", ["user", "admin"]);
+var tongueRollingChoice = pgEnum("tongue_rolling_choice", ["can", "cannot"]);
+var eyeColourChoice = pgEnum("eye_colour_choice", ["brown", "blue", "green", "hazel"]);
+var bloodGroupChoice = pgEnum("blood_group_choice", ["A", "B", "AB", "O"]);
+var users = pgTable("users", {
+  id: serial("id").primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull()
+  role: userRole("role").default("user").notNull(),
+  createdAt: timestamp("createdAt", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }).defaultNow().notNull(),
+  lastSignedIn: timestamp("lastSignedIn", { withTimezone: true }).defaultNow().notNull()
 });
-var classSubmissions = mysqlTable("class_submissions", {
+var classSubmissions = pgTable("class_submissions", {
   id: varchar("id", { length: 36 }).primaryKey(),
-  bodyMass: decimal("bodyMass", { precision: 7, scale: 2 }),
-  height: decimal("height", { precision: 7, scale: 2 }),
-  handSpan: decimal("handSpan", { precision: 6, scale: 2 }),
-  tongueRolling: mysqlEnum("tongueRolling", ["can", "cannot"]),
-  eyeColour: mysqlEnum("eyeColour", ["brown", "blue", "green", "hazel"]),
-  bloodGroup: mysqlEnum("bloodGroup", ["A", "B", "AB", "O"]),
+  bodyMass: numeric("bodyMass", { precision: 7, scale: 2 }),
+  height: numeric("height", { precision: 7, scale: 2 }),
+  handSpan: numeric("handSpan", { precision: 6, scale: 2 }),
+  tongueRolling: tongueRollingChoice("tongueRolling"),
+  eyeColour: eyeColourChoice("eyeColour"),
+  bloodGroup: bloodGroupChoice("bloodGroup"),
   leafLengths: text("leafLengths"),
-  seedMass: decimal("seedMass", { precision: 8, scale: 4 }),
+  seedMass: numeric("seedMass", { precision: 8, scale: 4 }),
   seedMasses: text("seedMasses"),
-  submittedAt: timestamp("submittedAt").defaultNow().notNull()
+  submittedAt: timestamp("submittedAt", { withTimezone: true }).defaultNow().notNull()
 });
+
+// server/db-config.ts
+var SSL_CONNECTION_PARAMETERS = /* @__PURE__ */ new Set([
+  "ssl",
+  "sslcert",
+  "sslkey",
+  "sslmode",
+  "sslrootcert",
+  "uselibpqcompat"
+]);
+function getPostgresConnectionString(env = process.env) {
+  const connectionString = env.POSTGRES_DATABASE_URL?.trim() || env.DATABASE_URL?.trim() || env.DRIZZLE_DATABASE_URL?.trim();
+  if (!connectionString) return null;
+  let protocol;
+  try {
+    protocol = new URL(connectionString).protocol;
+  } catch {
+    throw new Error("The database connection string is not a valid URL.");
+  }
+  if (protocol !== "postgres:" && protocol !== "postgresql:") {
+    throw new Error("Only PostgreSQL connection URLs are supported by this application.");
+  }
+  return connectionString;
+}
+function getVerifiedPostgresOptions(connectionString, caCertificate) {
+  if (!caCertificate.includes("-----BEGIN CERTIFICATE-----") || !caCertificate.includes("-----END CERTIFICATE-----")) {
+    throw new Error("A PEM CA certificate is required for verified PostgreSQL TLS.");
+  }
+  const url = new URL(connectionString);
+  for (const name of [...url.searchParams.keys()]) {
+    if (SSL_CONNECTION_PARAMETERS.has(name.toLowerCase())) {
+      url.searchParams.delete(name);
+    }
+  }
+  return {
+    connectionString: url.toString(),
+    ssl: {
+      ca: caCertificate,
+      rejectUnauthorized: true
+    }
+  };
+}
 
 // server/_core/env.ts
 var ENV = {
@@ -92,16 +156,31 @@ var ENV = {
 
 // server/db.ts
 var _db = null;
+var _pool = null;
+function readPostgresCaCertificate() {
+  return readFileSync(resolve(process.cwd(), "certs/aiven-ca.pem"), "utf8");
+}
 async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      _db = drizzle(process.env.DATABASE_URL);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
-    }
+  if (_db) return _db;
+  try {
+    const configuredUrl = getPostgresConnectionString();
+    if (!configuredUrl) return null;
+    const { connectionString, ssl } = getVerifiedPostgresOptions(
+      configuredUrl,
+      readPostgresCaCertificate()
+    );
+    _pool = new Pool({
+      connectionString,
+      ssl,
+      max: 5,
+      idleTimeoutMillis: 3e4
+    });
+    _db = drizzle(_pool, { schema: schema_exports });
+    return _db;
+  } catch {
+    console.warn("[Database] PostgreSQL configuration or trusted CA certificate is unavailable.");
+    return null;
   }
-  return _db;
 }
 async function upsertUser(user) {
   if (!user.openId) throw new Error("User openId is required for upsert");
@@ -129,7 +208,11 @@ async function upsertUser(user) {
   }
   if (!values.lastSignedIn) values.lastSignedIn = /* @__PURE__ */ new Date();
   if (Object.keys(updateSet).length === 0) updateSet.lastSignedIn = /* @__PURE__ */ new Date();
-  await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+  updateSet.updatedAt = /* @__PURE__ */ new Date();
+  await db.insert(users).values(values).onConflictDoUpdate({
+    target: users.openId,
+    set: updateSet
+  });
 }
 async function getUserByOpenId(openId) {
   const db = await getDb();
@@ -947,7 +1030,7 @@ function cleanSubmission(input) {
   }
   return clean;
 }
-function numeric(value) {
+function numeric2(value) {
   if (value === null || value === void 0 || value === "") return void 0;
   const result = Number(value);
   return Number.isFinite(result) ? result : void 0;
@@ -1013,11 +1096,11 @@ function buildSnapshot(rows) {
     totalSampleSize: rows.length,
     updatedAt: (/* @__PURE__ */ new Date()).toISOString(),
     histograms: {
-      bodyMass: publicHistogram(makeHistogram(rows.map((row) => numeric(row.bodyMass)).filter((v) => v !== void 0), "kg", 10)),
-      height: publicHistogram(makeHistogram(rows.map((row) => numeric(row.height)).filter((v) => v !== void 0), "cm", 10)),
-      handSpan: publicHistogram(makeHistogram(rows.map((row) => numeric(row.handSpan)).filter((v) => v !== void 0), "cm", 2)),
+      bodyMass: publicHistogram(makeHistogram(rows.map((row) => numeric2(row.bodyMass)).filter((v) => v !== void 0), "kg", 10)),
+      height: publicHistogram(makeHistogram(rows.map((row) => numeric2(row.height)).filter((v) => v !== void 0), "cm", 10)),
+      handSpan: publicHistogram(makeHistogram(rows.map((row) => numeric2(row.handSpan)).filter((v) => v !== void 0), "cm", 2)),
       leafLength: publicHistogram(makeHistogram(leafValues, "cm", 5)),
-      seedMass: publicHistogram(makeHistogram(rows.flatMap((row) => [...parseJsonNumbers(row.seedMasses), ...numeric(row.seedMass) === void 0 ? [] : [numeric(row.seedMass)]]), "g", 0.5))
+      seedMass: publicHistogram(makeHistogram(rows.flatMap((row) => [...parseJsonNumbers(row.seedMasses), ...numeric2(row.seedMass) === void 0 ? [] : [numeric2(row.seedMass)]]), "g", 0.5))
     },
     categories: {
       tongueRolling: tally("tongueRolling", ["can", "cannot"]),

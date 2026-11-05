@@ -31,6 +31,12 @@
 
 ## Managed project and delivery
 
-- [x] The Manus-managed server and database are enabled; checked-in schema/migrations are applied to the new empty MySQL database without importing records. The supplied snapshot contains zero user rows and zero class-submission rows.
+- [x] The Manus-managed server and database were enabled during the initial restoration; its original checked-in MySQL migrations were applied to the empty MySQL database. The supplied snapshot contains zero user rows and zero class-submission rows. The managed MySQL resource remains provisioned and is not used by the converted PostgreSQL application.
 - [x] The root route manifest at `/manus-routes.json` contains the actual page route `/` titled `Variation Lab Live`, and `/api/health` returns an unauthenticated HTTP success response.
 - [x] The restored project installs from the checked-in pnpm lockfile, passes its existing type and application checks, builds, and is available in Manus Preview.
+
+## PostgreSQL database conversion
+
+- [x] Convert the database layer and Drizzle schema from MySQL to PostgreSQL and update the project. This project does not contain a Prisma schema. Use a PostgreSQL Drizzle driver and PostgreSQL column/enumeration types, preserving the current `users` and `class_submissions` model, anonymous-submission fields, query behavior, and user upsert behavior. Use checked-in PostgreSQL migrations and preserve the prior MySQL migration history as inactive archive material.
+- [x] Apply the PostgreSQL migration only after Aiven service `pg-12682151` was confirmed running PostgreSQL 18 and its URI was configured securely. The migration created the app enum types, `users`, `class_submissions`, and Drizzle migration history in the initially empty public schema. Do not connect a PostgreSQL driver to the still-enabled Manus managed MySQL DSN. Do not copy or delete MySQL data as part of this schema conversion; the new application tables remain empty.
+- [x] Verify the user-provided Aiven project CA with certificate validation enabled, confirm TLS to `pg-12682151` on PostgreSQL 18, and confirm the public schema contained zero tables before migration. The live Manus Preview health, route manifest, and class-data snapshot return HTTP 200 with sample size zero.

@@ -1,38 +1,25 @@
-# Variation Lab Live — Final Manus Rebuild Package
+# Variation Lab Live — Project Handoff
 
-This is the complete portable workspace for rebuilding the website in a new Manus account.
+The application is in `variationlab/`. It is a React/Vite frontend with an Express API and a PostgreSQL database managed through Drizzle. The previous MySQL migrations remain archived under `variationlab/drizzle/legacy-mysql/`; they are not part of the active migration chain.
 
-## Exact restoration request
+## Local commands
 
-Open a new Manus session, upload this ZIP, and say:
-
-> Restore the `variationlab/` directory as a managed web project with server and database enabled. Read `variationlab/variationlab-workspace-migration.md` completely. Restore all source files and PDF-derived assets, restore the database schema and JSON export, run the migrations, and reconstruct the website exactly as described. Do not omit the compiled output or original source materials.
-
-## Local/project commands
-
-From the `variationlab/` directory:
+From `variationlab/`:
 
 ```bash
-pnpm install
-pnpm db:migrate
+pnpm install --frozen-lockfile
 pnpm check
 pnpm test
 pnpm build
 pnpm dev
 ```
 
-## Database restoration
+To apply the active PostgreSQL migrations, configure `POSTGRES_DATABASE_URL` and provide the public Aiven CA at `variationlab/certs/aiven-ca.pem`, then run `pnpm db:migrate`. Never paste a database URI into source files, Git, or chat. The Vercel production project uses `DATABASE_URL`; its value belongs in Vercel's encrypted Environment Variables settings, not in this repository.
 
-- Required database variable: `DATABASE_URL`.
-- The current database snapshot is `database-export.json`; it currently contains zero rows in both `users` and `class_submissions`.
-- Restore migrations before importing any future rows.
-- Optional runtime variables: `NODE_ENV`, `PORT`, and `TEACHER_KEY`.
-- The default teacher key is `variationlab`; set `TEACHER_KEY` in the new environment to replace it.
+## Vercel deployment
 
-## Included
+The Vercel project should use the `Container` framework preset with `variationlab/` as its Root Directory. The checked-in Dockerfile builds and serves the frontend and API together. Set `PORT=3000`, matching the container listener. The Aiven database schema has already been applied; deployment should not run the migration command again.
 
-Complete source, `dist/` output, package lockfile, database schema/migrations, database JSON export, PDF-derived images, original PDF/PPTX teaching files, and the full migration Markdown bundle.
+## Package checksums
 
-## Excluded for safety and portability
-
-`node_modules/`, Git internals, private logs, `.env` files, credentials, and transient platform caches. Dependencies are reproducible from `package.json` and `pnpm-lock.yaml`.
+`MANIFEST.sha256` covers the files under `variationlab/`, including the generated `dist/` output and supplied teaching assets. It excludes Git internals, dependencies, private logs, actual/local environment files, and transient caches.
