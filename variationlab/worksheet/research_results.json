@@ -1,0 +1,531 @@
+[
+  {
+    "analysis_questions": [
+      "Which mass interval contains the most anonymous readings?",
+      "What does the overall shape or spread of this voluntary sample’s distribution show?",
+      "How might voluntary participation affect what this class distribution represents?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Mass interval (kg)",
+        "Frequency (number of readings)"
+      ],
+      "instructions": "Record only voluntary readings in kg, with no names, student IDs, diagnoses, or identifying information. Tally anonymous readings into equal-width intervals for the group frequency table; keep individual slips private and discuss aggregate frequencies only.",
+      "note": "The entry range is 20–300 kg. Do not alter a reading outside that range; leave it out of this class dataset and use the practice dataset or ask the teacher privately. Do not use the data to judge anyone’s health or body."
+    },
+    "graphing": {
+      "graph_type": "Histogram with equal-width, touching bars (for continuous measurements).",
+      "guidance": [
+        "Choose equal-width mass intervals that cover the recorded values, and make the interval boundaries clear.",
+        "Label both axes with the quantity and units where relevant; give the graph a neutral title such as ‘Distribution of voluntarily contributed body-mass measurements’.",
+        "Draw one bar for each interval; bars touch because body mass is continuous. Bar height shows the interval frequency.",
+        "Use a clear, even scale on the frequency axis, starting at zero; check that the bar frequencies add to the total number of anonymous readings.",
+        "Show only the pooled distribution—never label, rank, or single out individual students."
+      ],
+      "x_axis": "Mass interval (kg)",
+      "y_axis": "Frequency (number of anonymous readings)"
+    },
+    "id": "1",
+    "learning_objective": "Measure body mass in kilograms (kg) and use anonymous, voluntary class data to describe its distribution with a histogram.",
+    "method_steps": [
+      "Participation is optional. If you prefer not to be measured, use the teacher-provided practice dataset instead; there is no need to give a reason.",
+      "The teacher sets up an approved, calibrated scale on a firm, level, non-slip floor in a private place, out of sight and hearing of other students.",
+      "If you choose to participate, measure only your own body mass, following the scale instructions. Step onto and off the scale carefully and read the displayed mass in kg.",
+      "Write only the mass value (kg)—no name, student ID, or other identifying details—on the anonymous recording slip. Fold it and place it in the collection box; do not say the value aloud or show it to others.",
+      "Use the anonymous slips to tally equal-width mass intervals and make a class frequency table. Do not try to identify contributors or compare individual measurements.",
+      "Enter measurements only as displayed and within the data-entry range of 20–300 kg. If your reading is outside that range, do not change it to fit; use the practice dataset or ask the teacher privately."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Make taking part optional and offer a practice dataset without asking why. Measure out of sight and hearing of others; keep slips anonymous, do not announce or display individual values, and discuss only the pooled distribution.",
+        "hazard": "Body-mass measurements can feel personal or cause embarrassment, stigma, or unwanted comparison."
+      },
+      {
+        "control": "Place the scale on a firm, level, non-slip surface, keep the surrounding area clear, and step on and off carefully while following the scale instructions.",
+        "hazard": "A scale or hurried stepping may create a slip or trip risk."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "CDC describes safeguards for school height/weight measurement, including an appropriate process for consent/declining measurement, a private setting out of sight and hearing of other students, not announcing results, and removing identifying information from surveillance data.",
+        "title": "CDC: Body Mass Index (BMI) Measurement in Schools",
+        "url": "https://archive.cdc.gov/www_cdc_gov/healthyschools/obesity/bmi/bmi_measurement_schools.htm"
+      },
+      {
+        "supports": "Explains that a histogram uses adjoining/contiguous bars, quantitative measurement intervals on the horizontal axis, and frequency or relative frequency on the vertical axis; it also demonstrates constructing a histogram from continuous measurements.",
+        "title": "OpenStax: Introductory Statistics 2e, Section 2.2—Histograms, Frequency Polygons, and Time Series Graphs",
+        "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-2-histograms-frequency-polygons-and-time-series-graphs"
+      }
+    ],
+    "title": "Body mass"
+  },
+  {
+    "analysis_questions": [
+      "Which height interval contains the most readings, and which contains the fewest?",
+      "What do the histogram’s shape and spread tell you about the distribution of this set of measurements?",
+      "What could affect the accuracy of the measurements or limit how well volunteer results represent a wider group?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Anonymous reading number (not linked to a person)",
+        "Height (cm)"
+      ],
+      "instructions": "Enter one volunteer reading per row in centimetres. Keep the table private and use only non-identifying data; do not make a key linking readings to people. Check unexpected values privately rather than altering them.",
+      "note": "The activity’s available range is 80–230 cm. Do not record names, student IDs, diagnoses, or identifying information."
+    },
+    "graphing": {
+      "graph_type": "Histogram (continuous measurements; bars touch).",
+      "guidance": [
+        "Choose equal-width intervals that cover the recorded heights; label each interval clearly.",
+        "Use a consistent rule for readings on interval boundaries so each reading is counted once.",
+        "Count the readings in each interval and draw bars that touch, with bar height showing frequency.",
+        "Label both axes with units where appropriate and give the graph a clear title; show only the class distribution, not individual readings."
+      ],
+      "x_axis": "Height intervals (cm)",
+      "y_axis": "Number of readings (frequency)"
+    },
+    "id": "2",
+    "learning_objective": "Measure height in centimetres using a consistent, respectful method, then describe the distribution of volunteer measurements with a histogram.",
+    "method_steps": [
+      "Taking part is optional. You may pass or stop at any time. Measure in a private space and do not comment on or compare anyone’s body.",
+      "Use a stable, securely fixed height measure on a level floor. Check that the area is clear; do not climb on furniture or equipment.",
+      "If you choose to be measured, stand upright with feet flat, arms relaxed and eyes looking straight ahead. Remove shoes only if you are comfortable doing so; keep any clothing or headwear you prefer to wear.",
+      "With permission, position the headpiece at the top of the head without touching the participant. If this cannot be done comfortably, skip the measurement.",
+      "Read the scale at eye level and record the height in centimetres. If the reading seems uncertain or is outside 80–230 cm, check the setup and entry privately; do not change a reading just to fit the range.",
+      "Record only an anonymous reading in the class data table. Do not write names, student IDs, diagnoses or identifying details; keep the results private and do not publicly compare measurements."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Participation is optional; collect readings privately, allow participants to stop or pass, and do not publicly compare or comment on individual results.",
+        "hazard": "A participant feels pressured, embarrassed or uncomfortable about sharing body measurements."
+      },
+      {
+        "control": "Ask permission first; the participant may position the headpiece themselves. Do not touch anyone, and skip the measurement if it cannot be done comfortably.",
+        "hazard": "Unwanted contact while positioning the headpiece or measuring."
+      },
+      {
+        "control": "Use a securely fixed measure on a level floor, keep the area clear, and never climb on furniture or equipment.",
+        "hazard": "Falls or injury from unstable equipment or climbing to reach a scale."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "Describes standardized standing-height measurement with a stadiometer, footwear removed, upright posture and head alignment; supports using consistent positioning and reading a height measure.",
+        "title": "Height Assessment — StatPearls, NCBI Bookshelf (NIH) ",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK551524/"
+      },
+      {
+        "supports": "States that histograms display continuous-variable distributions; the horizontal axis shows value intervals, the vertical axis frequency, and histogram bars do not have gaps.",
+        "title": "Histogram — JMP Statistical Knowledge Portal",
+        "url": "https://www.jmp.com/en/statistics-knowledge-portal/exploratory-data-analysis/histogram"
+      },
+      {
+        "supports": "Explains that posture, footwear, and foot and head positioning can affect height measurements, supporting consistent positioning and careful technique.",
+        "title": "Procedure for Measuring Adult Height — NIHR Southampton Biomedical Research Centre",
+        "url": "https://www.uhs.nhs.uk/Media/Southampton-Clinical-Research/Procedures/BRCProcedures/Procedure-for-adult-height.pdf"
+      }
+    ],
+    "title": "Height"
+  },
+  {
+    "analysis_questions": [
+      "Which hand-span interval contains the most measurements, and which contains the fewest?",
+      "What pattern, if any, do you notice in how the measurements are distributed across the intervals?",
+      "What might make these measurements or this anonymous class sample less reliable or representative?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Hand span (cm)",
+        "Frequency (number of measurements)"
+      ],
+      "instructions": "Record each voluntarily shared measurement once, in centimetres, with no name, student number, or other identifier. Keep individual values private; use anonymous pooled counts for the class graph. If a reading falls outside 5–35 cm, recheck it rather than changing it to fit.",
+      "note": "For a frequency table, use equal-width 5 cm groups: 5–<10, 10–<15, 15–<20, 20–<25, 25–<30, and 30–35 cm (include 35 in the final group). Count each valid measurement once."
+    },
+    "graphing": {
+      "graph_type": "Histogram for continuous measurements; draw adjacent bars with no gaps.",
+      "guidance": [
+        "Give the graph a clear title and label both axes, including units on the x-axis.",
+        "Mark the class intervals in increasing numerical order and use the same width for each interval.",
+        "Plot each interval's frequency as the height of its bar; start the frequency scale at zero and choose regular, readable steps.",
+        "Make neighbouring bars touch to show the continuous scale; keep the bars distinct and the interval boundaries clear."
+      ],
+      "x_axis": "Hand span (cm), grouped into equal-width 5 cm intervals from 5 to 35 cm.",
+      "y_axis": "Frequency (number of anonymous measurements)."
+    },
+    "id": "3",
+    "learning_objective": "Measure hand span safely as a continuous value in centimetres and use anonymous class data to describe its distribution in a histogram.",
+    "method_steps": [
+      "Taking part is optional: you may skip measuring or sharing a value without giving a reason.",
+      "Use your own hand. Rest it comfortably on a flat surface and spread your fingers only as far as feels comfortable.",
+      "Place a ruler beside your hand. Measure in centimetres from the tip of your thumb to the tip of your little finger; do not mark your skin.",
+      "Record the measurement in the permitted range of 5–35 cm. If it seems outside that range, recheck the ruler placement; do not force your hand or alter the result to fit.",
+      "Submit one measurement without a name or other identifier. The teacher can tally the anonymous values into equal-width groups for the class histogram.",
+      "Use the grouped counts to draw a histogram, with the bars touching."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Spread only as far as comfortable; do not force joints. Stop immediately if there is discomfort, and skip the activity if preferred.",
+        "hazard": "Overstretching fingers or discomfort while spreading the hand."
+      },
+      {
+        "control": "Measure your own hand; do not touch anyone else. Sharing is optional, and record or display only anonymous pooled values—never compare individuals publicly.",
+        "hazard": "Unwanted contact or sharing of personal body measurements."
+      },
+      {
+        "control": "Use a clean ruler, avoid putting it near the face or mouth, and clean it between users according to classroom practice.",
+        "hazard": "Shared ruler or equipment may be unclean."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "Defines hand span measurement as the distance in centimetres from the tip of the thumb to the tip of the little finger with fingers spread; supports the measurement endpoints and unit used here.",
+        "title": "Illustrative Mathematics, “Hand span and height” (teacher commentary)",
+        "url": "https://tasks.illustrativemathematics.org/content-standards/tasks/1097"
+      },
+      {
+        "supports": "Explains that histograms are for continuous data, unlike bar charts for distinct categories; bars touch, intervals lie on the horizontal axis, and frequency is shown on the vertical axis.",
+        "title": "The Open University, OpenLearn, “More working with charts, graphs and tables: 5.3 Histograms”",
+        "url": "https://www.open.edu/openlearn/science-maths-technology/mathematics-statistics/more-working-charts-graphs-and-tables/content-section-5.2.3"
+      }
+    ],
+    "title": "Hand span"
+  },
+  {
+    "analysis_questions": [
+      "Which category had the larger count among the voluntary responses, or were the counts equal?",
+      "What limits how confidently these class totals describe people beyond this group?",
+      "Can these results show that one category is determined by a single gene or predicts anyone’s genetic destiny? Why or why not?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Category (Can/Cannot)",
+        "Tally",
+        "Count"
+      ],
+      "instructions": "Record class totals only for voluntary self-reports. Tally Can and Cannot separately; do not record individual responses, names, student IDs, diagnoses, or other identifying details. A pass is not counted.",
+      "note": "Keep results anonymous and report only aggregate counts. Tongue rolling is not a simple one-gene test; this activity cannot determine anyone’s genes or genetic destiny."
+    },
+    "graphing": {
+      "graph_type": "Separated bar chart (categorical data)",
+      "guidance": [
+        "Draw one bar for each category and leave a clear gap between bars.",
+        "Start the count axis at zero and use equal intervals.",
+        "Make each bar’s height match the corresponding anonymous tally total.",
+        "Label both axes, include a descriptive title, and do not display individual-level information."
+      ],
+      "x_axis": "Self-reported category (Can / Cannot)",
+      "y_axis": "Number of voluntary responses (count)"
+    },
+    "id": "4",
+    "learning_objective": "Record and graph anonymous, voluntary self-reports of tongue-rolling ability, and explain why this class pattern cannot establish genetic cause or destiny.",
+    "method_steps": [
+      "Participation is optional. You may pass without explaining; do not ask classmates to join or comment on anyone’s choice.",
+      "Read the categories: Can = you can voluntarily make your tongue into a tube-like roll; Cannot = you cannot do so now. If unsure or uncomfortable, pass.",
+      "Without touching anyone or using shared items, privately decide whether you wish to report Can or Cannot. Do not practise or try to persuade anyone to change their response.",
+      "Give your response only if you choose, using the teacher’s anonymous tally method. No names or individual records are collected; pass responses are not counted.",
+      "Combine only the voluntary responses into class totals for each category. Use these totals for the table and graph; do not identify or publicly compare individuals.",
+      "Discuss the pattern respectfully, remembering that a classroom count describes only the responses collected and is not a genetic test."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Participation is optional; allow passing without explanation. Do not tease, rank, single out, or compare individual responses.",
+        "hazard": "Pressure, embarrassment, or teasing about a body trait."
+      },
+      {
+        "control": "Use voluntary self-report only. No touching, shared items, or inspection by another person.",
+        "hazard": "Unwanted physical contact or sharing objects during the activity."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "Family and twin studies show tongue rolling is not a simple genetic character and is influenced by both genetic and environmental factors; some people learn the ability, so it should not be used as a simple Mendelian example.",
+        "title": "Myths of Human Genetics: Tongue-rolling: the myth — University of Delaware",
+        "url": "https://udel.edu/~mcdonald/mythtongueroll.html"
+      },
+      {
+        "supports": "Reports that tongue rolling is not caused by a single dominant gene; evidence includes identical twins who differ and a small practice study in which one participant learned to roll their tongue.",
+        "title": "Debunking the biggest genetic myth of the human tongue — PBS NewsHour",
+        "url": "https://www.pbs.org/newshour/science/genetic-myth-textbooks-get-wrong"
+      }
+    ],
+    "title": "Tongue rolling"
+  },
+  {
+    "analysis_questions": [
+      "Which category has the highest count in this voluntary group, and which has the lowest?",
+      "What limits how confidently these voluntary group counts can describe a wider population?",
+      "What pattern can you describe without making claims about anyone’s genes or health?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Eye-colour category",
+        "Tally",
+        "Number of responses"
+      ],
+      "instructions": "Record only anonymous totals from voluntary responses. Leave skipped responses out of category counts. Do not collect names, student IDs, diagnoses, photographs, or other identifying information.",
+      "note": "Use only Brown, Blue, Green, and Hazel. Results describe this voluntary group only; eye colour is not a health test or a simple deterministic genetic test."
+    },
+    "graphing": {
+      "graph_type": "Separated bar chart (categorical data)",
+      "guidance": [
+        "Give the chart a clear title, such as ‘Voluntary eye-colour responses in our group’. ",
+        "Put the four categories on the horizontal axis and response count on the vertical axis.",
+        "Draw separate bars with gaps because the categories are distinct, not continuous measurements.",
+        "Start the count scale at zero and use equal intervals; label both axes.",
+        "Use one consistent scale and show only group totals, not individual students’ data."
+      ],
+      "x_axis": "Eye-colour category (Brown, Blue, Green, Hazel)",
+      "y_axis": "Number of anonymous responses"
+    },
+    "id": "5",
+    "learning_objective": "Classify voluntarily reported eye colour into the workbook’s categories and present an anonymous group tally as categorical data, without making genetic or health conclusions.",
+    "method_steps": [
+      "Participation is optional. You may skip this activity without giving a reason.",
+      "If you choose to take part, report your own eye colour or observe your own iris briefly in a mirror, in ordinary room light only; never shine a light into eyes.",
+      "Choose the closest category: Brown, Blue, Green, or Hazel. If unsure, leave the response blank.",
+      "Submit only the category, privately and without a name or identifier; do not ask classmates to disclose their category.",
+      "Combine voluntary responses into anonymous counts for each category, counting each response once and leaving skipped responses uncounted.",
+      "Record and graph only class-level totals; do not display or discuss anyone’s individual response."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Use ordinary room light only. Never shine a light, including a phone flash, into anyone’s eyes.",
+        "hazard": "Bright or directed light could cause discomfort or risk to the eyes."
+      },
+      {
+        "control": "Observation is optional; view briefly in ordinary room light, stop if uncomfortable, or use self-report instead.",
+        "hazard": "Close or prolonged mirror viewing could cause discomfort or eye strain."
+      },
+      {
+        "control": "Allow students to skip; collect category responses privately and share only anonymous group totals, never individual comparisons.",
+        "hazard": "Disclosure or public comparison may cause embarrassment or unwanted attention."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "Explains that iris colour ranges along a continuum, is often grouped into broad categories, and is influenced by multiple genes; the simple one-gene dominant/recessive model is too simplistic.",
+        "title": "MedlinePlus Genetics: Is eye color determined by genetics?",
+        "url": "https://medlineplus.gov/genetics/understanding/traits/eyecolor/"
+      },
+      {
+        "supports": "Describes intermediate iris-colour variation and eye colour as a complex trait involving major and many minor genes, cautioning against simple deterministic inheritance claims.",
+        "title": "Mackey, ‘What colour are your eyes? Teaching the genetics of eye colour & colour vision’ (Eye, via PubMed Central)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8956647/"
+      }
+    ],
+    "title": "Eye colour"
+  },
+  {
+    "analysis_questions": [
+      "Which simulated category has the greatest count, and which has the smallest?",
+      "What simulated anti-A/anti-B pattern corresponds to each category in the dataset?",
+      "How might the category counts change with a different fictional dataset, and why can these results not tell us anything about a real person's blood group?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Fictional card code",
+        "Simulated anti-A result",
+        "Simulated anti-B result",
+        "Simulated ABO category"
+      ],
+      "instructions": "Use one row per fictional card. Record the simulated reactions, assign its ABO category with the key, then tally how many cards fall in each category. Use no names or personal data.",
+      "note": "Allowed categories are A, B, AB, and O only. Do not collect names, student IDs, diagnoses, or identifying information; do not record or compare real students' blood groups."
+    },
+    "graphing": {
+      "graph_type": "Separated bar chart",
+      "guidance": [
+        "Draw four separate bars, one for each category; leave gaps between bars because the data are categories.",
+        "Start the count axis at zero and use equal intervals.",
+        "Give the chart a clear title that says the data are simulated.",
+        "Label both axes and include all four categories, even if a category has zero cards.",
+        "Check that each bar height matches the tally table; do not graph or identify individual students."
+      ],
+      "x_axis": "Simulated ABO category (A, B, AB, O)",
+      "y_axis": "Number of fictional cards"
+    },
+    "id": "6",
+    "learning_objective": "Use fictional simulated anti-A and anti-B reaction patterns to classify cards as A, B, AB, or O, then summarize the category counts without drawing conclusions about any real person.",
+    "method_steps": [
+      "Participation is optional. Choose to sort the fictional cards/data or observe; use only the supplied simulation materials.",
+      "For each card, read the simulated anti-A and anti-B results using the symbols or key provided.",
+      "Classify the simulated pattern: anti-A only = A; anti-B only = B; both = AB; neither = O.",
+      "Record each fictional card's results and assigned category in the table. Do not add personal or identifying information.",
+      "Tally the simulated cards in each category and use the totals to make a separated bar chart.",
+      "Discuss only what the fictional dataset shows. These results are not a test of anyone's blood group and must not be used for medical decisions or inference."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Use simulation cards/data only. Real blood, needles, lancets, and bodily fluids are prohibited; do not perform a medical test.",
+        "hazard": "Real blood, needles, lancets, bodily fluids, or real testing could cause injury/exposure or make the activity feel unsafe."
+      },
+      {
+        "control": "Participation is optional; students may observe or sort fictional data. Never ask anyone to disclose or compare their blood group.",
+        "hazard": "A student may feel uncomfortable with blood-group topics or pressure to reveal personal information."
+      },
+      {
+        "control": "Label all records and charts as simulated; state that the activity provides no medical inference or advice.",
+        "hazard": "A simulated result could be mistaken for a diagnosis or used to make a medical claim."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "The four basic ABO phenotypes are O, A, B, and AB; A and B red-cell antigens are present in the corresponding groups, both in AB, and neither in O.",
+        "title": "The ABO blood group — NCBI Bookshelf, Blood Groups and Red Cell Antigens",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK2267/"
+      },
+      {
+        "supports": "An educational blood-typing game and tutorials illustrate learning about blood groups and simulated reaction patterns; the page distinguishes ABO groups and explains that transfusion compatibility is a clinical matter.",
+        "title": "The Blood Typing Game — Nobel Prize Outreach",
+        "url": "https://educationalgames.nobelprize.org/educational/medicine/bloodtypinggame/"
+      },
+      {
+        "supports": "Explains synthetic blood as an educational alternative to real blood and notes that it avoids the biohazard risks associated with real blood; supports choosing a simulation-only classroom activity.",
+        "title": "Synthetic Blood — Carolina Knowledge Center",
+        "url": "https://knowledge.carolina.com/discipline/life-science/anatomy-and-physiology/synthetic-blood/"
+      }
+    ],
+    "title": "Simulated blood group"
+  },
+  {
+    "analysis_questions": [
+      "Which length interval contains the greatest number of measured leaves?",
+      "How are the measurements spread across the intervals?",
+      "Are any intervals empty, or are any measurements far from most of the others? What can you say from this sample?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Leaf number",
+        "Leaf length (cm)"
+      ],
+      "instructions": "Record one row per leaf you measure, up to 40 rows. Use the same measurement method and units throughout; do not include personal details.",
+      "note": "Participation is optional. Do not record names, student IDs, diagnoses, or other identifying information."
+    },
+    "graphing": {
+      "graph_type": "Histogram (continuous measurements; use touching bars).",
+      "guidance": [
+        "Choose equal-width length intervals that cover the measurements; agree on the bin width with your teacher.",
+        "Count the leaves in each interval and plot each count as a bar.",
+        "Draw the bars touching, because the intervals are continuous numerical ranges.",
+        "Label both axes with the quantity and units where relevant, and give the graph a clear title.",
+        "Use a sensible, even scale on the frequency axis and check that every measurement is counted once."
+      ],
+      "x_axis": "Leaf length (cm), grouped into equal-width intervals (bins).",
+      "y_axis": "Number of leaves (frequency) in each interval."
+    },
+    "id": "7",
+    "learning_objective": "Measure leaf lengths consistently and use a histogram to describe how a set of continuous measurements varies.",
+    "method_steps": [
+      "Taking part is optional. If you choose not to measure leaves, let your teacher know and use an alternative they provide.",
+      "With your teacher, select only a known, teacher-approved non-toxic plant; avoid plants known to irritate skin or trigger allergies. Do not touch or measure an uncertain plant.",
+      "Without picking, cutting, or uprooting the plant, choose a leaf and place a ruler alongside it. Measure the leaf blade from where it joins the stalk to its tip, following the central vein; do not stretch or bend it.",
+      "Read the length in centimetres using the ruler, estimate consistently to its smallest marked division, and record one measurement. Record only values from 0.5 to 60 cm; ask your teacher if a reading falls outside this range.",
+      "Repeat for up to 40 leaves, numbering each leaf in your table. Wash your hands with soap and water when finished.",
+      "Check that every row has a leaf number and a length in cm, with no names or other identifying details."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Measure only teacher-approved, known non-toxic plants; avoid known skin-irritant or allergenic species. Do not touch uncertain plants; ask the teacher to provide an alternative.",
+        "hazard": "Contact with a poisonous, irritating, or allergenic plant may cause harm."
+      },
+      {
+        "control": "Measure leaves in place; do not pick, cut, or uproot plants.",
+        "hazard": "Damaging a plant by removing leaves or uprooting it."
+      },
+      {
+        "control": "Avoid touching your face while working and wash hands with soap and water afterward.",
+        "hazard": "Plant residue on hands could be transferred to eyes or mouth."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "The classroom resource suggests observing a plant and measuring leaf size, and advises asking an adult whether a plant is safe to touch; this supports teacher-approved observation and leaf measurement as a student activity.",
+        "title": "Leaves — Northwest Regional Education Service District Outdoor Science School",
+        "url": "https://www.nwresd.org/services/outdoor-science-school/classroom-resources/leaves"
+      },
+      {
+        "supports": "NIOSH describes toxic and skin-irritating plant exposure risks, advises not handling unknown plants, and recommends soap and water for cleaning hands and skin; this supports approved-plant selection, avoiding uncertain plants, and handwashing.",
+        "title": "Outdoor Workers and Poisonous Plant Exposures — CDC/NIOSH",
+        "url": "https://www.cdc.gov/niosh/bulletin/2022/poisonous-plants.html"
+      },
+      {
+        "supports": "Statistics Canada explains that histograms summarize numeric/continuous measurements by grouping values into intervals, with frequency on the vertical dimension and no gaps between bars; this supports the graph type, axes, and touching bars.",
+        "title": "Statistics: Power from Data! — 5.7 Histogram, Statistics Canada",
+        "url": "https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch9/histo/5214822-eng.htm"
+      }
+    ],
+    "title": "Leaf length"
+  },
+  {
+    "analysis_questions": [
+      "Which mass interval contains the most seeds, and which contains the fewest?",
+      "What does the histogram suggest about how the seed masses are distributed?",
+      "What measurement or sampling limitations might affect the pattern you see?"
+    ],
+    "data_recording": {
+      "columns": [
+        "Seed number",
+        "Seed type (if applicable)",
+        "Mass (g)"
+      ],
+      "instructions": "Record one row for each individual seed weighed, up to 40. Enter the balance reading in grams without adding student names, IDs, or other identifying details. If a value is outside the app’s allowed range (0.001–10 g), ask your teacher rather than changing it.",
+      "note": "Use a simple sequence number for each seed, not a student identifier. Record the instrument’s displayed precision consistently."
+    },
+    "graphing": {
+      "graph_type": "Histogram (seed mass is continuous numerical data; bars touch).",
+      "guidance": [
+        "Choose equal-width mass intervals that include all recorded values.",
+        "Tally each seed once in the interval containing its mass.",
+        "Label both axes with the quantity and unit where relevant; give the graph a clear title.",
+        "Draw adjacent bars with no gaps between intervals, and use a sensible, even scale on the frequency axis."
+      ],
+      "x_axis": "Seed mass (g), grouped into equal-width intervals",
+      "y_axis": "Number of seeds (frequency)"
+    },
+    "id": "8",
+    "learning_objective": "Measure individual seeds’ mass in grams and use a frequency histogram to describe variation in the sample.",
+    "method_steps": [
+      "Taking part is optional. Before handling seeds, your teacher checks that the known classroom seed sample is suitable under school allergy procedures. If you prefer not to handle seeds, use an anonymised class data set instead.",
+      "Use only the teacher-provided, known classroom seeds. Do not use treated, unknown, or dusty seeds; do not make dust.",
+      "Place an empty weighing boat on the balance and zero (tare) it. Check that the balance is suitable for the seed masses and displays mass in grams.",
+      "Using forceps or the teacher-approved tool, place one seed in the boat. Record its mass in grams exactly as displayed; do not round beyond the balance’s displayed precision.",
+      "Repeat for up to 40 seeds, using the same balance and method. Keep every seed away from mouths, do not eat seeds, return them as directed, and wash your hands when finished. Ask your teacher if a reading is outside 0.001–10 g or cannot be measured reliably."
+    ],
+    "risk_assessment": [
+      {
+        "control": "Teacher checks the known seed choice against school allergy procedures before the activity. Do not handle seeds if you prefer not to; use the anonymised class data option.",
+        "hazard": "A seed may trigger an allergy or reaction."
+      },
+      {
+        "control": "Use only teacher-provided known classroom seeds; reject treated, unknown, or dusty seeds. Avoid creating dust and follow the teacher’s cleanup directions.",
+        "hazard": "Treated or unknown seeds, or dust from seeds, may expose people to harmful substances."
+      },
+      {
+        "control": "Never eat seeds; keep them away from mouths, handle them only at the work area, and clean up promptly as directed.",
+        "hazard": "Small seeds could be put in the mouth and pose a choking risk."
+      }
+    ],
+    "sources": [
+      {
+        "supports": "Describes students using a balance to measure mass, recording measurements in grams, graphing numerical data, and comparing results.",
+        "title": "Measuring and Comparing Matter — MnSTEP Teaching Activity Collection, SERC/Carleton College",
+        "url": "https://serc.carleton.edu/sp/mnstep/activities/19334.html"
+      },
+      {
+        "supports": "Explains treated seed can involve pesticide exposure, advises reading labels and proper precautions, and warns against generating treatment-laden dust or allowing treated seed into food/feed; supports excluding treated/unknown seed and avoiding dust.",
+        "title": "Safe Handling of Treated Seed — University of Minnesota Extension",
+        "url": "https://blog-crop-news.extension.umn.edu/2019/04/safe-handling-of-treated-seed.html"
+      },
+      {
+        "supports": "Identifies whole or chopped seeds among choking hazards for young children and advises attention to what children put in their mouths; supports keeping small seeds away from mouths as a classroom precaution.",
+        "title": "Choking Hazards — U.S. Centers for Disease Control and Prevention",
+        "url": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/choking-hazards.html"
+      },
+      {
+        "supports": "Explains that a histogram uses a continuous numeric horizontal axis, groups data into intervals, and uses touching bars; contrasts this with separated bars for categories.",
+        "title": "4.10 Presenting Quantitative Data Graphically — Lumen Learning",
+        "url": "https://courses.lumenlearning.com/frontrange-mathforliberalartscorequisite1/chapter/4-10-presenting-quantitative-data-graphically/"
+      }
+    ],
+    "title": "Seed mass"
+  }
+]

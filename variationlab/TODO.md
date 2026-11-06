@@ -30,6 +30,12 @@
 - [x] Preserve the approved midnight-observatory × field-notebook visual direction: deep navy display stage, warm paper panels, cobalt continuous-measurement cues, coral category cues, mint live beacon, measurement rules/interval ticks, DM Sans for controls/data, Space Grotesk for display headings, and restrained motion.
 - [x] Essential classroom labels, inputs, actions, consent text, and chart titles use large-print typography at approximately 26px or larger at desktop and mobile widths.
 
+## Printable student worksheet export
+
+- [x] Add an accessible no-login “Download student worksheet (PDF)” action in the shared dashboard. It downloads a bundled, print-ready A4 PDF that students can use offline after download; the template contains no live class submissions, names, or identifiers and does not require an API or database request.
+- [x] Include an overall learning objective and a section for each of Investigations 1–8. Each section contains a student-ready learning objective, safe step-by-step methodology, an item-specific risk assessment with hazard/control actions, a blank data-recording table, graph-planning instructions with plotting space and labeled axes, and neutral interpretation questions. Match the dashboard values/ranges: body mass 20–300 kg, height 80–230 cm, hand span 5–35 cm, tongue rolling Can/Cannot, eye colour Brown/Blue/Green/Hazel, simulated blood group A/B/AB/O, leaf lengths 0.5–60 cm up to 40 observations, and seed masses 0.001–10 g up to 40 observations. Use histograms for continuous traits and separated bar charts for categorical traits. Make participation optional and avoid public comparison of sensitive body measurements; Investigation 6 uses simulation only, never real blood.
+- [x] Include one relevant web-sourced picture for each investigation, bundled with the PDF so it works offline. Credit each image’s creator/title, source URL, and reuse licence in the workbook; do not hotlink images at runtime.
+
 ## Managed project and delivery
 
 - [x] The Manus-managed server and database were enabled during the initial restoration; its original checked-in MySQL migrations were applied to the empty MySQL database. The supplied snapshot contains zero user rows and zero class-submission rows. The managed MySQL resource remains provisioned and is not used by the converted PostgreSQL application.

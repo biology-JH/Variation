@@ -24,6 +24,15 @@ The supplied database export has zero user records and zero class submissions. T
 - `DATABASE.md` — PostgreSQL connection, TLS, migration, and MySQL-history safety notes.
 - `manus-routes.json` — page-route declaration for the dashboard.
 - `app.config.ts` — project logo metadata.
+- `worksheet/` — the Typst source, content manifest, selected build plan, locally bundled web-sourced investigation images, and their source/licence credits.
+- `client/public/downloads/variation-lab-student-worksheet.pdf` — the compiled A4, print-ready blank workbook, served as a static download for offline classroom use.
+- `client/src/components/WorksheetDownload.tsx` — accessible dashboard link to the static PDF; it does not request, expose, or embed live class data.
+
+## Printable student worksheet
+
+Add a no-login PDF download action in the right dashboard’s classroom-information area, leaving the entry rail and cover/header composition intact. The bundled worksheet is an offline blank template, not a live-data export, and contains no student submissions, names, or identifiers. Build its source in `worksheet/` with the selected Typst base and include the resulting file under `client/public/downloads/` so a normal Vite production build serves the PDF without a new API or database dependency.
+
+The A4 portrait workbook uses a print-friendly field-notebook treatment: readable Noto Sans headings, roughly 14 mm margins for clear writing room, restrained navy/cobalt/coral markers, and no large ink-heavy backgrounds. It begins with class-level learning goals and usage/safety reminders. Each of Investigations 1–8 spans two pages: objective, safe numbered method, item-specific risk assessment, and blank data table on the first; graph guidance, correctly labeled axes and plotting space, and neutral interpretation prompts on the second. Numerical traits use histograms and category traits use separated bar charts. Each investigation also includes one relevant locally bundled web image; captions and a closing image-credit/source section retain author, source URL, and licence information.
 
 ## Design
 
@@ -49,6 +58,6 @@ The supplied database export has zero user records and zero class submissions. T
 - Investigation 7 and 8 each support one to 40 rows in the interface and server validation; rows can be removed and multiple observations persist in the same submission.
 - The public live snapshot includes `totalSampleSize` (submission-row count), histogram interval labels/frequencies, and category tallies only. Do not expose per-student values, exact extrema, submission IDs, or other row-level data in GET or SSE responses.
 - Export returns a CSV with one row per submission and leaf values in a quoted JSON column. Clear requires the teacher key and a second confirmation on the client.
-- The website uses only imagery from the supplied PDF: the cover collage is the large header, worksheet Name/Date lines are removed, the two header panels touch edge-to-edge, and each matching investigation picture is displayed at the same printed physical size as in the PDF (about 316 CSS px wide at 96 CSS px/in, with its natural aspect-derived height). Preserve the complete image without scaling it into a shorter fixed-height panel or cutting/cropping it. The left entry panel is text-only; the full PDF is not presented as a gallery.
+- The live dashboard continues using only the supplied PDF-derived artwork: the cover collage is the large header, worksheet Name/Date lines are removed, the two header panels touch edge-to-edge, and each matching investigation picture is displayed at the same printed physical size as in the PDF (about 316 CSS px wide at 96 CSS px/in, with its natural aspect-derived height). Preserve the complete image without scaling it into a shorter fixed-height panel or cutting/cropping it. The left entry panel is text-only; the full PDF is not presented as a gallery. Only the separate downloadable student workbook adds web-sourced investigation images, with source and licence credits embedded in that PDF.
 - Before submit, a student explicitly consents to anonymous sharing; consent resets after each successful submission and is not recorded.
 - Dashboard cards appear in chronological Investigation 1–8 order, with two wider cards per row paired 1/2, 3/4, 5/6, and 7/8 whenever the layout can fit the PDF-sized pictures. Screens too narrow for two cards switch to one column to avoid overflow. Chart titles, tags, plots, and footnotes wrap or size within each card with no overlapping text; investigation cards have no drop shadow or hover lift. Student-facing grouping labels remain neutral and do not classify the investigations for them.

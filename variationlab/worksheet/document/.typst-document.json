@@ -1,0 +1,10 @@
+{
+  "entry": "main.typ",
+  "metadata": {
+    "author": "Variation Lab Live",
+    "subtitle": "Eight investigations in continuous and categorical variation",
+    "title": "Variation Lab Live — Student Field Workbook"
+  },
+  "mode": "report",
+  "theme": "report-theme.typ"
+}

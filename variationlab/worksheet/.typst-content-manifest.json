@@ -1,0 +1,17 @@
+{
+  "task_kind": "new-document",
+  "output": "pdf",
+  "signals": ["student worksheet"],
+  "hard_constraints": [
+    "A4 portrait workbook for offline classroom use",
+    "Eight sections matching Investigations 1–8",
+    "Each investigation needs an objective, methodology, risk assessment, data recording, graph plotting space, and interpretation prompts",
+    "One relevant locally bundled web image per investigation with creator, source URL, and licence credit",
+    "No names, student IDs, class codes, or live student submissions in the PDF"
+  ],
+  "content_features": {
+    "code_blocks": 0,
+    "defined_terms": 4,
+    "portrait_images": 1
+  }
+}

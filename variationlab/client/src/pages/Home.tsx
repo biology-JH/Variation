@@ -3,6 +3,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { toast } from "sonner";
 import { ArrowUpRight, Download, FlaskConical, Leaf, LockKeyhole, Plus, Radio, RotateCcw, Send, ShieldCheck, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import WorksheetDownload from "@/components/WorksheetDownload";
 
 type Histogram = {
   bins: { label: string; frequency: number }[];
@@ -232,6 +233,7 @@ export default function Home() {
         <div className="dashboard-content">
           <div className="dashboard-toolbar"><div><span className="section-kicker">02 / Class display</span><h2>Shared evidence board</h2></div><div className="sample-counter"><span className="counter-label"><Radio size={14} /> total sample size</span><strong>N = {snapshot.totalSampleSize}</strong><span className="counter-caption">anonymous submissions</span></div></div>
           <div className="lesson-strip"><div className="lesson-icon"><FlaskConical size={18} /></div><p><strong>Read the shape, not the person.</strong> The board gathers anonymous class observations and shows the pattern as it grows.</p><span className="updated-stamp">{snapshot.updatedAt ? `Updated ${new Date(snapshot.updatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "Waiting for data"}</span></div>
+          <WorksheetDownload />
 
           <div className="chart-section-heading"><span className="section-kicker">Investigations 1–8</span><span>Intervals and tallies update as the class grows</span></div>
           <div className="chart-grid chronological-grid">

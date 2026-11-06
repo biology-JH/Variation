@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "pdf": "/home/ubuntu/variation/worksheet/document/main.pdf",
+  "profile": "image-bearing",
+  "overall": "PASS",
+  "checks": [
+    {
+      "name": "signature",
+      "status": "PASS",
+      "message": "PDF header is valid",
+      "evidence": {
+        "header": "%PDF-"
+      }
+    },
+    {
+      "name": "pdfinfo",
+      "status": "PASS",
+      "message": "PDF is parseable by pdfinfo",
+      "evidence": {}
+    },
+    {
+      "name": "page-count",
+      "status": "PASS",
+      "message": "pages=20",
+      "evidence": {
+        "pages": 20
+      }
+    },
+    {
+      "name": "page-size",
+      "status": "PASS",
+      "message": "595.276 x 841.89 pts (A4)",
+      "evidence": {}
+    },
+    {
+      "name": "metadata-title",
+      "status": "PASS",
+      "message": "expected='Variation Lab Live — Student Field Workbook', actual='Variation Lab Live — Student Field Workbook'",
+      "evidence": {}
+    },
+    {
+      "name": "metadata-author",
+      "status": "PASS",
+      "message": "expected='Variation Lab Live', actual='Variation Lab Live'",
+      "evidence": {}
+    },
+    {
+      "name": "text-presence",
+      "status": "PASS",
+      "message": "characters=26385",
+      "evidence": {}
+    },
+    {
+      "name": "placeholders",
+      "status": "PASS",
+      "message": "No placeholder markers found",
+      "evidence": {
+        "matches": []
+      }
+    },
+    {
+      "name": "fonts",
+      "status": "PASS",
+      "message": "font_records=3",
+      "evidence": {}
+    },
+    {
+      "name": "images",
+      "status": "PASS",
+      "message": "images=10",
+      "evidence": {}
+    }
+  ]
+}
