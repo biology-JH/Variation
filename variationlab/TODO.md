@@ -38,6 +38,12 @@
 - [x] Make all words in the entire workbook larger and readable: body text 12 pt and no visible text smaller than 11.5 pt, including graph labels, table headings/numbers, image captions, and page furniture.
 - [x] Remove printed workbook pages 17–18 (sources/credits appendix), keep all eight investigations, and deliver exactly 18 physical PDF pages: cover, guide, and two pages for each investigation.
 
+## Bilingual keyword edition
+
+- [x] Preserve the final English booklet byte-for-byte and provide a separate downloadable duplicate that retains its English directions, methods, risks, questions, data ranges, website pictures, and all eight investigations; translate selected keywords only into Traditional Chinese, not the complete paragraphs.
+- [x] Include a compact English–Traditional Chinese keyword key within the existing student guide and inline translations for the investigation names and essential keywords: variation, continuous/discontinuous variation, measurement, sample, risk assessment, hazard/control, safety/privacy/voluntary participation, category, tally, frequency, frequency table, histogram, bar chart, interval/bin, horizontal/x-axis, vertical/y-axis, and the eight investigation traits/categories. Do not translate full paragraphs or add appendix pages. Render every Traditional Chinese glyph correctly with an installed CJK font and keep large-print sizing (12 pt body, no visible text smaller than 11.5 pt); the bilingual edition preserves the same 18-page structure.
+- [x] Add a second accessible static-download action on the website, clearly distinguished as the English workbook with Traditional Chinese keyword translations, alongside the unchanged English download. The bilingual PDF is bundled for offline use and requires no live class data, API, or database request.
+
 ## Managed project and delivery
 
 - [x] The Manus-managed server and database were enabled during the initial restoration; its original checked-in MySQL migrations were applied to the empty MySQL database. The supplied snapshot contains zero user rows and zero class-submission rows. The managed MySQL resource remains provisioned and is not used by the converted PostgreSQL application.

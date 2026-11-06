@@ -242,3 +242,18 @@ body { font-size: 26px; }
 @media (max-width: 1120px) { .chronological-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.chronological-grid .chart-card, .chronological-grid .chart-card:nth-child(7), .chronological-grid .chart-card:nth-child(8) { grid-column: span 1; } }
 @media (max-width: 560px) { .chronological-grid { grid-template-columns: 1fr; } }
 @container (max-width: 708px) { .chronological-grid { grid-template-columns: 1fr; }.chronological-grid .chart-card { grid-column: auto; } }
+
+
+/* Two-edition student workbook downloads. */
+.worksheet-download-actions { flex: 0 0 265px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.worksheet-download-link { width: 100%; min-height: 78px; justify-content: flex-start; white-space: normal; text-align: left; }
+.worksheet-download-link-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.worksheet-download-link-copy strong { font-size: 26px; line-height: 1.05; }
+.worksheet-download-link-copy small { font-size: 18px; font-weight: 600; line-height: 1.2; }
+.worksheet-download-link--bilingual { border: 2px solid var(--coral); background: #fff; color: var(--ink); }
+.worksheet-download-link--bilingual:hover { background: #fff4f1; }
+.worksheet-download-link--bilingual:focus-visible { outline-color: var(--coral); }
+.worksheet-download-kicker { font-size: 18px; letter-spacing: .06em; }
+.worksheet-download-description { font-size: 18px; line-height: 1.4; }
+.worksheet-download-note { font-size: 16px; line-height: 1.3; }
+@container (max-width: 560px) { .worksheet-download-actions { width: 100%; flex-basis: auto; }.worksheet-download-link { width: 100%; } }

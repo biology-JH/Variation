@@ -1,0 +1,36 @@
+{
+  "base": {
+    "auto_apply": true,
+    "id": "existing-project",
+    "kind": "existing-project",
+    "ownership": "global",
+    "reason": "Preserve the user's existing Typst project as the base."
+  },
+  "catalog_version": "2026-07-17-affiliated-formats-v3",
+  "channel": "typst-pdf",
+  "confirmation_candidates": [],
+  "enhancements": [
+    {
+      "adoption": "A",
+      "auto_apply": true,
+      "conflict_group": null,
+      "id": "glossarium",
+      "kind": "universe-package",
+      "ownership": "semantic",
+      "reason": "Content evidence satisfies {\"defined_terms\": 5}",
+      "status": "ready",
+      "universe_ref": "@preview/glossarium:0.5.10",
+      "version": "0.5.10"
+    }
+  ],
+  "exclusions": [],
+  "fingerprint": "sha256:c4d89abc003ef650255446c2d23485aea6835b95b348818e39cf53f17e4ffdaf",
+  "next_action": "minimal-compile-preflight",
+  "optional_idea": null,
+  "question": null,
+  "reused": false,
+  "schema_version": 1,
+  "state": "ready",
+  "style_owner": "existing-project",
+  "typst_version": "typst 0.15.1 (9dfd3a08)"
+}

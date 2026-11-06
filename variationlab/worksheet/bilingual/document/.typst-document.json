@@ -1,0 +1,10 @@
+{
+  "entry": "main.typ",
+  "metadata": {
+    "author": "Variation Lab Live",
+    "subtitle": "English instructions with Traditional Chinese keyword translations",
+    "title": "Variation Lab Live — Student Field Workbook (Traditional Chinese keywords)"
+  },
+  "mode": "report",
+  "theme": "report-theme.typ"
+}

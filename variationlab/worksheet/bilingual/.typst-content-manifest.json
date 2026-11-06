@@ -1,0 +1,18 @@
+{
+  "task_kind": "existing-typst",
+  "output": "pdf",
+  "signals": ["student worksheet", "Traditional Chinese keywords", "CJK typography"],
+  "hard_constraints": [
+    "Create a separate 18-page A4 bilingual keyword edition; preserve the English instructions, methodology, safety text, questions, data ranges, and investigation order.",
+    "Translate key biology, measurement, safety, data, and graph vocabulary into Traditional Chinese only; do not translate full paragraphs.",
+    "Keep the final English PDF byte-for-byte unchanged.",
+    "Use the same website header cover image and matching eight investigation pictures; do not use unrelated web, stock, or generated pictures.",
+    "Use an installed Traditional Chinese CJK font; keep body text at 12 pt and all visible text at least 11.5 pt.",
+    "The blank offline template contains no student names, IDs, class codes, or live class submissions."
+  ],
+  "content_features": {
+    "code_blocks": 0,
+    "defined_terms": 20,
+    "portrait_images": 1
+  }
+}

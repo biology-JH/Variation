@@ -25,14 +25,20 @@ The supplied database export has zero user records and zero class submissions. T
 - `manus-routes.json` — page-route declaration for the dashboard.
 - `app.config.ts` — project logo metadata.
 - `worksheet/` — the Typst source, content manifest, selected build plan, research notes, and local copies of the exact header and eight investigation pictures shown by the website; no web-search/stock images are included.
-- `client/public/downloads/variation-lab-student-worksheet.pdf` — the compiled A4, print-ready blank workbook, served as a static download for offline classroom use.
-- `client/src/components/WorksheetDownload.tsx` — accessible dashboard link to the static PDF; it does not request, expose, or embed live class data.
+- `client/public/downloads/variation-lab-student-worksheet.pdf` — the final English A4, print-ready blank workbook, served as a static download for offline classroom use.
+- `worksheet/bilingual/` — a separate Typst source, Traditional Chinese keyword glossary, build plan, and Noto CJK TC font-fallback configuration for the bilingual duplicate; it retains the English instructions and reuses the same website pictures.
+- `client/public/downloads/variation-lab-student-worksheet-bilingual.pdf` — the bilingual English + Traditional Chinese keyword edition, served as its own static offline download without changing the English PDF.
+- `client/src/components/WorksheetDownload.tsx` — accessible dashboard links to both static PDFs; neither requests, exposes, nor embeds live class data.
 
 ## Printable student worksheet
 
 Add a no-login PDF download action in the right dashboard’s classroom-information area, leaving the entry rail and cover/header composition intact. The bundled worksheet is an offline blank template, not a live-data export, and contains no student submissions, names, or identifiers. Build its source in `worksheet/` with the selected Typst base and include the resulting file under `client/public/downloads/` so a normal Vite production build serves the PDF without a new API or database dependency.
 
 The A4 portrait workbook uses a print-friendly field-notebook treatment: 12 pt body text, no smaller than 11.5 pt for any visible words, larger headings and labels, 14 mm margins, restrained navy/cobalt/coral markers, and no large ink-heavy backgrounds. The exact `header-edge-to-edge.png` picture shown in the website becomes the cover picture. Each of Investigations 1–8 spans two pages and uses the matching picture already displayed on that investigation's dashboard card, copied locally from `client/public/assets/pdf/investigations/`; each page captions the picture as Variation Lab Live website artwork. The workbook replaces all earlier web-search/stock images, has no separate bibliography or image-credit appendix, and retains research/source notes only in the project files. It begins with class-level learning goals and usage/safety reminders. Each investigation has an objective, safe numbered method, item-specific risk assessment, and blank data table on the first page; graph guidance, correctly labeled axes and plotting space, and neutral interpretation prompts on the second. Numerical traits use histograms and category traits use separated bar charts. Final PDF: 18 physical pages—cover, student guide, and the 16 pages for all eight investigations; no printed pages 17–18 appendix.
+
+## Bilingual keyword edition
+
+Create a separate PDF from a copy of the approved English Typst source; preserve the final English PDF byte-for-byte. Keep the English workbook text, methods, questions, safety directions, data ranges, site pictures, and 18-page structure, while translating only key terms into Traditional Chinese. Add a clearly labelled bilingual cover, a compact English–Traditional Chinese keyword key within the existing student guide, and inline Chinese equivalents for investigation names plus important risk, data, and graph/table labels; do not add an appendix or translate full paragraphs. Use the installed Noto CJK TC font for Chinese glyphs with the existing English serif/sans families as fallbacks; keep the large-print hierarchy (12 pt body and no visible text below 11.5 pt). Place the duplicate at `/downloads/variation-lab-student-worksheet-bilingual.pdf` and add a second accessible static-download link beside the English option. The bilingual file remains a blank offline template with no live class/student data and no new API/database behavior.
 
 ## Design
 
