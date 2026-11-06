@@ -36,7 +36,7 @@
   title: none,
   author: none,
   rhythm: "report",
-  body-size: 11pt,
+  body-size: 12pt,
   first-line-indent: none,
   paragraph-spacing: none,
   running-header: false,
@@ -69,7 +69,7 @@
     header: if running-header {
       context {
         if counter(page).get().first() > 0 {
-          set text(size: 9pt, fill: luma(100))
+          set text(size: 11.5pt, fill: luma(100))
           grid(
             columns: (1fr, 1fr),
             align(left)[#title],
@@ -145,7 +145,7 @@
     inset: 10pt,
     radius: 4pt,
     width: 100%,
-    text(size: 9pt, it),
+    text(size: 11.5pt, it),
   )
   show link: set text(fill: report-accent)
   show figure: set block(breakable: true)

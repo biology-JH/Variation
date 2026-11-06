@@ -1,14 +1,14 @@
-# Worksheet research and image credits
+# Worksheet research and artwork notes
 
-The eight-method source records are preserved in `research_results.json`. Claims on the worksheet are cited by numbered references; all image files used in the PDF are local copies under `images/` and are never hotlinked at runtime.
+The eight investigation methods were informed by the sources below; full structured research is preserved in `research_results.json`. The user requested removal of printed pages 17–18, so this bibliography remains with the project sources and is not printed in the student PDF.
 
-## Research references
+## Research references used for method and safety drafting
 
 1. U.S. Centers for Disease Control and Prevention, “Body Mass Index (BMI) Measurement in Schools.” https://archive.cdc.gov/www_cdc_gov/healthyschools/obesity/bmi/bmi_measurement_schools.htm
 2. OpenStax, *Introductory Statistics 2e*, §2.2 “Histograms, Frequency Polygons, and Time Series Graphs.” https://openstax.org/books/introductory-statistics-2e/pages/2-2-histograms-frequency-polygons-and-time-series-graphs
 3. “Height Assessment,” *StatPearls*, NCBI Bookshelf (NIH). https://www.ncbi.nlm.nih.gov/books/NBK551524/
 4. NIHR Southampton Biomedical Research Centre, “Procedure for Measuring Adult Height.” https://www.uhs.nhs.uk/Media/Southampton-Clinical-Research/Procedures/BRCProcedures/Procedure-for-adult-height.pdf
-5. Illustrative Mathematics, “Hand span and height” (teacher commentary). https://tasks.illustrativemathematics.org/content-standards/tasks/1097
+5. Illustrative Mathematics, “Hand span and height.” https://tasks.illustrativemathematics.org/content-standards/tasks/1097
 6. John H. McDonald, University of Delaware, “Tongue-rolling: the myth.” https://udel.edu/~mcdonald/mythtongueroll.html
 7. MedlinePlus Genetics, “Is eye color determined by genetics?” https://medlineplus.gov/genetics/understanding/traits/eyecolor/
 8. Nobel Prize Outreach, “The Blood Typing Game.” https://educationalgames.nobelprize.org/educational/medicine/bloodtypinggame/
@@ -19,16 +19,21 @@ The eight-method source records are preserved in `research_results.json`. Claims
 13. University of Minnesota Extension, “Safe Handling of Treated Seed.” https://blog-crop-news.extension.umn.edu/2019/04/safe-handling-of-treated-seed.html
 14. U.S. CDC, “Choking Hazards.” https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/choking-hazards.html
 
-## Selected web images in the PDF
+## Exact Variation Lab Live website artwork used in the student PDF
 
-1. Investigation 1 — Pavel Danilyuk, “A Person Standing on a Weighing Scale,” Pexels. https://www.pexels.com/photo/a-person-standing-on-a-weighing-scale-7801341/ . Pexels licence: free use; attribution appreciated but not required. https://www.pexels.com/license/ . Local asset `investigation-01-body-mass.jpg`; shows feet on a scale, with no face.
-2. Investigation 2 — DrDK1967, “QuickMedical digital stadiometer.jpg,” Wikimedia Commons. https://commons.wikimedia.org/wiki/File:QuickMedical_digital_stadiometer.jpg . CC BY 3.0 Unported; credit creator, link licence, and indicate changes. Local asset `investigation-02-height.jpg`.
-3. Investigation 3 — Unitfreak, “Hand Units of Measurement.PNG,” Wikimedia Commons. https://commons.wikimedia.org/wiki/File:Hand_Units_of_Measurement.PNG . Public-domain dedication. Local asset `investigation-03-hand-span.png`; the illustration identifies a traditional span between thumb and little-finger tips, while this activity records centimetres.
-4. Investigation 4 — BigH22, “4x curling tongue.jpg,” Wikimedia Commons. https://commons.wikimedia.org/wiki/File:4x_curling_tongue.jpg . CC BY-SA 3.0 (also offered under GFDL); credit BigH22, link the licence, and indicate that the image was scaled for layout. Local asset `investigation-04-tongue-rolling.jpg` is the image-search copy.
-5. Investigation 5 — LeuschteLampe, “Farbverlauf Augenfarben.jpg” (“Range of colors for the human eye”), Wikimedia Commons. https://commons.wikimedia.org/wiki/File:Farbverlauf_Augenfarben.jpg . Worldwide public-domain dedication. Local asset `investigation-05-eye-colour.jpg`.
-6. Investigation 6 — InvictaHOG, “ABO blood type.svg,” Wikimedia Commons. https://commons.wikimedia.org/wiki/File:ABO_blood_type.svg . Worldwide public-domain dedication. Local asset `investigation-06-abo-groups.png` is a rendered preview placed on a dark panel so its transparent background and light labels remain legible.
-7. Investigation 7 — McSush, derivative of Debivort, “Leaf morphology.svg,” Wikimedia Commons. https://commons.wikimedia.org/wiki/File:Leaf_morphology.svg . CC BY-SA 3.0 (also offered under GFDL); credit both creators, link the licence, and indicate scaling. Local asset `investigation-07-leaf-morphology.png`.
-8. Investigation 8 — vitalina, “Nuts near Old Weight Scale,” Pexels. https://www.pexels.com/photo/nuts-near-old-weight-scale-12572535/ . Pexels licence: free use; attribution appreciated but not required. https://www.pexels.com/license/ . Local asset `investigation-08-seed-mass.jpg`; the photo depicts peanuts, so the worksheet explicitly says to use teacher-approved seeds and follow allergy rules instead.
+The workbook uses the same locally bundled artwork already shown by the website, copied from `client/public/assets/pdf/` without cropping or pixel editing. No search-result, stock-photo, or newly generated “Manus” pictures are used. Captions on the relevant booklet pages identify the source as Variation Lab Live website artwork.
+
+- Cover — `header-edge-to-edge.png`.
+- Investigation 1, Body mass — `investigations/investigation-6.png`.
+- Investigation 2, Height — `investigations/investigation-1.png`.
+- Investigation 3, Hand span — `investigations/investigation-4.png`.
+- Investigation 4, Tongue rolling — `investigations/investigation-5.png`.
+- Investigation 5, Eye colour — `investigations/investigation-9.png`.
+- Investigation 6, Simulated blood group — `investigations/investigation-2.png`.
+- Investigation 7, Leaf length — `investigations/investigation-7.png`.
+- Investigation 8, Seed mass — `investigations/investigation-8.png`.
+
+`investigations/investigation-3.png` is present in the project asset folder but is not displayed by any current dashboard investigation card; its subject (ear shapes) is already represented in the site header collage. The PDF therefore includes every investigation picture actually shown on the live website once, plus the full header picture on the cover.
 
 ## Workbook-only vector
 

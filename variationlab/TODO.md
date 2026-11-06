@@ -32,9 +32,11 @@
 
 ## Printable student worksheet export
 
-- [x] Add an accessible no-login “Download student worksheet (PDF)” action in the shared dashboard. It downloads a bundled, print-ready A4 PDF that students can use offline after download; the template contains no live class submissions, names, or identifiers and does not require an API or database request.
+- [x] Keep the accessible no-login “Download student worksheet (PDF)” action in the shared dashboard. It downloads a bundled, print-ready A4 PDF students can use offline after download; the template contains no live class submissions, names, or identifiers and requires no API or database request.
 - [x] Include an overall learning objective and a section for each of Investigations 1–8. Each section contains a student-ready learning objective, safe step-by-step methodology, an item-specific risk assessment with hazard/control actions, a blank data-recording table, graph-planning instructions with plotting space and labeled axes, and neutral interpretation questions. Match the dashboard values/ranges: body mass 20–300 kg, height 80–230 cm, hand span 5–35 cm, tongue rolling Can/Cannot, eye colour Brown/Blue/Green/Hazel, simulated blood group A/B/AB/O, leaf lengths 0.5–60 cm up to 40 observations, and seed masses 0.001–10 g up to 40 observations. Use histograms for continuous traits and separated bar charts for categorical traits. Make participation optional and avoid public comparison of sensitive body measurements; Investigation 6 uses simulation only, never real blood.
-- [x] Include one relevant web-sourced picture for each investigation, bundled with the PDF so it works offline. Credit each image’s creator/title, source URL, and reuse licence in the workbook; do not hotlink images at runtime.
+- [x] Use the exact pictures shown on the website: make the existing `header-edge-to-edge.png` picture the workbook cover picture and include the matching visible dashboard picture in each of all eight investigation sections, with a readable caption attributing it to the Variation Lab Live website. Do not use the earlier web-search/stock/Manus pictures; remove the separate source/image-credit appendix and put necessary picture credits directly on the relevant pages.
+- [x] Make all words in the entire workbook larger and readable: body text 12 pt and no visible text smaller than 11.5 pt, including graph labels, table headings/numbers, image captions, and page furniture.
+- [x] Remove printed workbook pages 17–18 (sources/credits appendix), keep all eight investigations, and deliver exactly 18 physical PDF pages: cover, guide, and two pages for each investigation.
 
 ## Managed project and delivery
 
